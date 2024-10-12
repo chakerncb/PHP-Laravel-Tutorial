@@ -704,8 +704,10 @@
 ```
 
 ***
-## 6. Verify the user :
+## 5. Verify the user :
 ***
+
+  + make the user must verify his email before login.
 
 + 1. *** in the route file*** :
 
@@ -731,6 +733,87 @@
     }
 
 ```
+
+***
+## 6. task scheduling :
+
++ 1. ***what is task scheduling*** :
+***
+
+  + it's a way to make the laravel run a task in a specific time.
+     like :
+        - send an email every day at 8:00 am.
+        - delete the data every week.
+        - send a notification every month.
+
++ 2. ***how to make a task scheduling*** :
+
+    1. create a task :
+
+>    php artisan make:command <taskName>
+
+   2. in the task file :
+
+```sh
+       
+       // wrrite the name of the task and the description of the task :
+
+    protected $signature = 'command:name';
+
+    protected $description = 'Command description';
+
+```
+
+   3. in the handle method :
+    + example of the task that make change in the database :
+    
+    ```sh
+        
+        // get all the users and update the name of them :
+              
+        public function handle()
+        {
+            $users = User::all();
+
+            foreach ($users as $user) {
+                $user->update(['name' => 'new name']);
+            }
+        }
+
+    ```
+
+    4. add the task to the kernel.php :
+
+```sh
+
+    protected $commands = [
+        Commands\commandName::class,
+    ];
+
+```
+
+    5. add the task to the schedule method in the kernel.php :
+
+```sh
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('command:name')->daily(); // the task will run daily
+    }
+
+```
+
+    6. run the task :
+
+>    php artisan schedule:run
+
+
+
+
+
+
+
+
 
 
 
