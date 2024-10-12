@@ -662,23 +662,49 @@
 
 ```
 
-   + to make the login with the mobile number or the email :
+***
++ 5. ***to make the login and register with the email Or the mobile number*** :
+***
+
+    + 1. in the login.blade.php add this:
+    
+```sh
+    
+                                    <div class="row mb-3">
+                            <label for="identity" class="col-md-4 col-form-label text-md-end">{{ __('auth.email') }}/{{__('auth.mobile')}}</label>
+
+                            <div class="col-md-6">
+                                <input id="identity" type="identity" class="form-control @error('email') is-invalid @enderror" name="identity" value="{{ old('identity') }}"  required autocomplete="identity" >
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+```
+
+    + 2. in the loginController.php :
 
 ```sh
 
     public function username()
     {
-                    if (filter_var(request()->input('email'), FILTER_VALIDATE_EMAIL)) {
-                return 'email';
-            } else {
-                return 'mobile';
-            }
+        $login = request()->input('identity');  // get the value of the input with the name identity
+
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile'; // check if the value is email or mobile
+
+        request()->merge([$field => $login]); // merge the value with the field
+
+        return $field; // return the field
     }
 
 ```
 
 ***
-## 5. Verify the user :
+## 6. Verify the user :
 ***
 
 + 1. *** in the route file*** :

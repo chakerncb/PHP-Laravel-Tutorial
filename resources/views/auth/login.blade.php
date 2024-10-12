@@ -12,6 +12,21 @@
                         @csrf
 
                         <div class="row mb-3">
+                            <label for="identity" class="col-md-4 col-form-label text-md-end">{{ __('auth.email') }}/{{__('auth.mobile')}}</label>
+
+                            <div class="col-md-6">
+                                <input id="identity" type="identity" class="form-control @error('email') is-invalid @enderror" name="identity" value="{{ old('identity') }}"  required autocomplete="identity" >
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+{{--
+                        <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('auth.email') }}</label>
 
                             <div class="col-md-6">
@@ -24,8 +39,9 @@
                                 @enderror
                             </div>
                         </div>
+--}}
 
-
+{{--
                         <div class="row mb-3">
                             <label for="mobile" class="col-md-4 col-form-label text-md-end">{{ __('auth.mobile') }}</label>
 
@@ -39,7 +55,7 @@
                                 @enderror
                             </div>
                         </div>
-
+--}}
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('auth.password') }}</label>
 

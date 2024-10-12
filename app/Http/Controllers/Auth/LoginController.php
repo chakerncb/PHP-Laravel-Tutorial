@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+
 class LoginController extends Controller
 {
     /*
@@ -40,10 +41,10 @@ class LoginController extends Controller
 
     public function username()
     {
-        if (filter_var(request()->input('email'), FILTER_VALIDATE_EMAIL)) {
-            return 'email';
-        } else {
-            return 'mobile';
-        }
-    }
+      $login = request()->input('identity');
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
+        request()->merge([$field => $login]);
+        return $field;
+}
+
 }
