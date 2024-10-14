@@ -268,7 +268,19 @@
 
 ```
 
-   5. apply the middleware to the hole controller :
+   5. add a middleware in group of routes :
+    
+```sh
+
+    Route::group(['middleware' => 'auth'] , function () {
+        Route::get('/' , function () {
+            return view('welcome');
+        });
+    });
+
+```
+
+   6. apply the middleware to the hole controller :
 
      + the method __construct() is make the middeleware applied to all the methods in this controller :
 
@@ -952,3 +964,123 @@
 ```
 
 ***
++ 5. ***how to get data from the database*** :
+***
+    - methods :  get , all , find , where , first , select , orderBy , limit , count , max , min , avg , sum , exists , doesntExist , pluck , firstOrCreate , firstOrNew , create , update , delete , destroy , save , push , fresh , findOrFail , findOrfail , findOrNew , findMany , find , findMany , findManyOrFail , findManyOrfail , findManyOrNew , findManyOrNew , findManyOrFail , findManyOrfail .
+               
+
+   1. get all the data :
+
+```sh
+
+    $data = User::all();
+
+```
+
+   2.  get specific columns :
+
+```sh
+
+    $data = User::select('name' , 'id')->get();
+
+```
+
+
+  3. get the first row :
+    
+```sh
+    
+     $data = User::first();
+    
+```
+    
+   4. get the first row that match the condition :
+     
+```sh
+    
+     $data = User::where('id' , 1)->first();
+    
+```
+
+***
++ 6. ***how to insert data in the database*** :
+***
+
+   1. insert data : (insert one row to the orders table) : 
+       - in the controller :
+
+
+```sh
+use App\Models\Order;
+
+
+    public function insert () {
+        
+    Order::create([
+            'id' => 1,
+            'name' => 'Order 1',
+            'category' => 'app',
+            'description' => 'Description 1',
+        ]);
+
+    }
+
+```
+
+***
+## 8. Database :
+
++ 1. ***what is migration*** :
+***
+
+    + it's a way to create a table in the database using code.
+
+***
+
++ 2. ***how to make a migration*** :
+***
+
+    1. create a migration :
+
+>    php artisan make:migration <migrationName>
+
+    2. in the migration file :
+
+```sh
+
+    // example of migration file :
+
+    public function up()
+    {
+        Schema::create('table name', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+        });
+    }
+
+```
+
+    3. run the migration :
+
+>    php artisan migrate
+
+***
++ 3. ***what is seeder*** :
+***
+    
+        + it's a way to insert data in the table using code.
+
+***
++ 4. ***how to make a seeder*** :
+***
+
+    1. create a seeder :
+    
+    
+
+   
+
+
