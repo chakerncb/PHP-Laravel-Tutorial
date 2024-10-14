@@ -764,8 +764,10 @@
 
 ```
 
-   3. in the handle method :
-    + example of the task that make change in the database :
+3. in the handle method :
+    + example 01:
+    
+       - the task that make change in the database :
     
     ```sh
         
@@ -807,25 +809,51 @@
 
 >    php artisan schedule:run
 
++ 3. ***example of task scheduling (send notifications email to the users:)*** :
 
-
-
-
-
-
-
-
-
-
-
-
-
+    + example 02:
     
+       - the task that send an email every day:
+    
+    ```sh
+        
+        // send an email to all the users :
+              
+        public function handle()
+        {
+            $emails = User::pluck('email')->toArray();
+        $data = ['title' => 'Cource Notification', 'body' => 'please check your inbox for more details'];
 
-  
+        foreach ($emails as $email){
+            // how to send email in laravel
+            Mail::to($emails)->send(new NotifyEmail($data));
 
+        }
+        }
 
+    ```
 
+    4. add the task to the kernel.php :
 
-             
+```sh
 
+    protected $commands = [
+        Commands\commandName::class,
+    ];
+
+```
+
+    5. add the task to the schedule method in the kernel.php :
+
+```sh
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('command:name')->daily; // the task will run daily
+    }
+
+```
+
+    6. run the task :
+
+>    php artisan schedule:run

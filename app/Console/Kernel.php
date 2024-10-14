@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
 
      protected $commands = [
         \App\Console\Commands\expiration::class,
+        \App\Console\Commands\Notify::class,
     ];
 
     protected function schedule(Schedule $schedule): void
@@ -20,6 +21,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->command('user:expire')->everyMinute();
+
+        $schedule->command('notify:email')->daily();
     }
 
     /**

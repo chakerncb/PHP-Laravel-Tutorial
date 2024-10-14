@@ -22,7 +22,4 @@ use App\Http\Controllers;
  Route::get('/projects' , 'App\Http\Controllers\Front\UserController@projects') -> name('projects');
  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']) -> middleware('verified') -> name('home');
 
-
- Route::get('/test1' , function () {
-        return 'Hello World';
- });
+ 
