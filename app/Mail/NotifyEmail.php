@@ -38,9 +38,7 @@ class NotifyEmail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
-            view: 'emails.mailuser',
-        ) -> with('details');
+        return new Content(view: 'emails.mailuser',);
     }
 
     /**

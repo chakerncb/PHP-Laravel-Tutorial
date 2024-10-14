@@ -29,14 +29,13 @@ class Notify extends Command
      */
     public function handle()
     {
-      //  $users = User::select('email')->get();
         
-        $emails = User::pluck('email')->toArray();
-        $data = ['title' => 'Cource Notification', 'body' => 'please check your inbox for more details'];
+        $emails = User::pluck('email')->toArray(); // bring the users emails from the database and store them in a array
 
-        foreach ($emails as $email){
+        foreach ($emails as $email) {
             // how to send email in laravel
-            Mail::to($emails)->send(new NotifyEmail($data));
+            $data = ['title' => 'Cource Notification', 'body' => 'please check your inbox for more details' , 'email' => $email];
+            Mail::to($email)->send(new NotifyEmail($data));
 
         }
     }
