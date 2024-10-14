@@ -8,15 +8,21 @@ use Illuminate\Http\Request;
 
 class CrudController extends Controller
 {
+    
+    /*
     public function __construct() {
         $this -> middleware('auth');
     }
+
+   
 
     public function getorders (){
       //  $orders = App\Models\Order::select('id', 'name')->get();
         $orders = App\Models\Order::all();
         return response() -> json($orders);
     }
+
+ 
 
     public function insert () {
         
@@ -27,4 +33,14 @@ class CrudController extends Controller
         ]);
 
     }
+        */
+
+    public function create () {
+        return view('front.orders');
+    }
+
+    public function store (Request $request) {
+        return $request;
+    }
+
 }

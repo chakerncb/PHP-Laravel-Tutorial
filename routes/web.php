@@ -25,9 +25,12 @@ use App\Http\Controllers;
  Route::get('fillables' , 'App\Http\Controllers\CrudController@getorders');
 
 
- Route::group(['prefix' => 'table'] , function (){
+ Route::group(['prefix' => 'order'] , function (){
 
-    Route::get('insert' , 'App\Http\Controllers\CrudController@insert');
+  //  Route::get('insert' , 'App\Http\Controllers\CrudController@insert');
+
+    Route::get('create' , 'App\Http\Controllers\CrudController@create');  
+    Route::post('store' , 'App\Http\Controllers\CrudController@store') -> name('orders.store');  
 
 
  });
