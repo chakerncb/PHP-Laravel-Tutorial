@@ -746,7 +746,9 @@
         - delete the data every week.
         - send a notification every month.
 
+***
 + 2. ***how to make a task scheduling*** :
+***
 
     1. create a task :
 
@@ -809,13 +811,15 @@
 
 >    php artisan schedule:run
 
+***
 + 3. ***example of task scheduling (send notifications email to the users:)*** :
+***
 
-    + example 02:
+   + example 02:
     
        - the task that send an email every day:
     
-    ```sh
+```sh
         
         // send an email to all the users :
               
@@ -857,3 +861,94 @@
     6. run the task :
 
 >    php artisan schedule:run
+
+
+***
+## 7. Models :
+
++ 1. ***what is model*** 
+***
+
+  + it's a class that represent the table in the database.
+         - like :
+            - User model represent the users table.
+            - Post model represent the posts table.
+            - Category model represent the categories table.
+
+```sh
+        Note : 
+         - the model name must be same as the table name but in singular form and the first letter must be capital.
+
+             - like :
+              ---------------------------
+              | table name | model name |                               
+              ---------------------------
+              | users      | User       |
+              | posts      | Post       |
+              | categories | Category   |
+              ---------------------------
+
+             - and if you want to make a model with a different name you must add this line in the model class :
+
+                protected $table = 'table name';
+        
+        example :
+        class Order extends Model
+        {
+            protected $table = 'myorders';
+        }
+```	
+
+***
++ 2. ***how to make a model*** :
+***
+
+    1. create a model :
+
+>    php artisan make:model <modelName>
+
+***
++ 3. ***what is fillable*** :
+
+    + it's an array that contain the columns that you can insert data in it.
+    
+       - example :
+
+    ```sh
+            
+            class User extends Model
+            {
+
+                protected $fillable = [   // the columns that you can insert data in it
+                    'name' ,
+                    'email' ,
+                    'password'
+                      
+                ];
+
+
+            }
+    ```
+
+***
++ 4. ***what is hidden*** :
+
+    + it's an array that contain the columns that you don't want to show it in the response.
+    
+       - example :
+
+```sh
+            
+            class User extends Model
+            {
+
+                protected $hidden = [   // the columns that you don't want to show it in the response
+                    'password' ,
+                    'remember_token'
+                      
+                ];
+
+            }
+```
+
+***
