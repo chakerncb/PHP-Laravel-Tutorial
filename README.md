@@ -1107,6 +1107,16 @@ use App\Models\Order;
               
         // the insert method that insert the data in the database :
     public function insert (Request $request) { // to get the data from the form
+          
+          // validate the data before insert it in the database :
+
+          $validate = Validate::make($request -> all() , [
+                'name' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|min:8',
+
+          ]);
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,

@@ -27,10 +27,10 @@ use App\Http\Controllers;
 
  Route::group(['prefix' => 'order'] , function (){
 
-  //  Route::get('insert' , 'App\Http\Controllers\CrudController@insert');
+  //  Route::get('insert' , 'App\Http\Controllers\OrderController@insert');
 
-    Route::get('create' , 'App\Http\Controllers\CrudController@create');  
-    Route::post('store' , 'App\Http\Controllers\CrudController@store') -> name('orders.store');  
+    Route::get('create' , 'App\Http\Controllers\OrderController@create');  
+    Route::post('store' , 'App\Http\Controllers\OrderController@store') -> name('orders.store');  
 
 
  });
