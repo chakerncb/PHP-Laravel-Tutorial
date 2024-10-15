@@ -23,37 +23,16 @@
                                     />
                                 </div>
                                 <!-- End: Success Example --><!-- Start: Error Example -->
-                            {{--    <div class="mb-3">
-                                    <div class="dropdown show">
-                                        <button
-                                            class="btn btn-primary dropdown-toggle"
-                                            aria-expanded="true"
-                                            data-bs-toggle="dropdown"
-                                            type="button"
-                                        >
-                                            Dropdown
-                                        </button>
-                                        <div
-                                            class="dropdown-menu show"
-                                            data-bs-popper="none"
-                                        >
-                                            <a
-                                                class="dropdown-item"
-                                                href="#"
-                                                >First Item</a
-                                            ><a
-                                                class="dropdown-item"
-                                                href="#"
-                                                >Second Item</a
-                                            ><a
-                                                class="dropdown-item"
-                                                href="#"
-                                                >Third Item</a
-                                            >
-                                        </div>
+                                <div class="mb-3">
+                                    <select name="category" id="category">
+                                        <option value="">Select Category</option>
+                                        @foreach($ord_catg as $category)
+                                        <option>{{$category}}</option>
+                                        @endforeach
+                                    </select>
                                     </div>
                                 </div>
-                                --}}
+                                
                                 <!-- End: Error Example -->
                                 <div class="mb-3">
                                     <textarea
@@ -82,4 +61,4 @@
     <!-- End: Contact Form Basic -->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
            
-    @stop
+    @endsection

@@ -1067,18 +1067,58 @@ use App\Models\Order;
 
 >    php artisan migrate
 
-***
-+ 3. ***what is seeder*** :
-***
-    
-        + it's a way to insert data in the table using code.
 
 ***
-+ 4. ***how to make a seeder*** :
++ 3. ***insert data in the database using a form*** :
 ***
 
-    1. create a seeder :
-    
+    1. in the view file (create.blade.php ):
+
+```sh
+
+    <form method="POST" action="{{route('insert')}}">
+        @csrf
+        <input type="text" name="name">
+        <input type="text" name="email">
+        <input type="text" name="password">
+        <button type="submit">insert</button>
+    </form>
+
+```
+
+    2. in the route file :
+
+```sh
+      //call the create method that return the view file (the form) :
+    Route::get('/create' , 'App\Http\Controllers\HomeController@create')->name('create');
+          
+        //call the insert method that insert the data in the database :
+    Route::post('/insert' , 'App\Http\Controllers\HomeController@insert')->name('insert');
+
+```
+
+    3. in the controller file :
+
+```sh
+      // the create method that return the view file (the form) :
+    public function create () {
+        return view('create');
+    }
+              
+        // the insert method that insert the data in the database :
+    public function insert (Request $request) { // to get the data from the form
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return 'your order created sucssesfuly'; // to return to the form after insert the data
+
+        
+    }
+
+```
     
 
    

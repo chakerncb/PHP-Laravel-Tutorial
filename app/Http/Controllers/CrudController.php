@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class CrudController extends Controller
 {
-    
+
     /*
     public function __construct() {
         $this -> middleware('auth');
@@ -36,11 +36,29 @@ class CrudController extends Controller
         */
 
     public function create () {
-        return view('front.orders');
+         $ord_catg = App\Models\Order_category::pluck('name');
+        return view('front.orders', compact('ord_catg'));
+
+        // using pulck method
+
+        // $ord_catg = App\Models\Order_category::pluck('name');
     }
 
     public function store (Request $request) {
-        return $request;
+
+        // validate the request
+
+
+
+        //
+         App\Models\Order::create([
+            'name' => $request -> name,
+            'category' => $request -> category,
+            'description' => $request -> description,
+        ]);
+
+        return 'Order created successfully';
+
     }
 
 }
