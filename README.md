@@ -1106,6 +1106,7 @@ use App\Models\Order;
     }
               
         // the insert method that insert the data in the database :
+        
     public function insert (Request $request) { // to get the data from the form
           
           // validate the data before insert it in the database :
@@ -1129,7 +1130,38 @@ use App\Models\Order;
     }
 
 ```
+
+***
++ 4. ***Costimize the validation messages*** :
+***
     
+        1. add in the validation function in the controller :
+    
+```sh
+            $validate = Validate::make($request -> all() , [
+                    'name' => 'required',
+                    'email' => 'required|email',
+                    'password' => 'required|min:8',
+    
+            ] , [
+                         // costimize the validation messages (on arabic) :
+                'name.required' => 'الاسم مطلوب',
+                'email.required' => 'البريد الالكتروني مطلوب',
+                'email.email' => 'البريد الالكتروني غير صحيح',
+                'password.required' => 'كلمة المرور مطلوبة',
+                'password.min' => 'كلمة المرور يجب ان تكون اكبر من 8 حروف',
+              
+            ]);
+``` 
+            
+
+***
++ 5. ***Show error messages in the form*** :
+***
+
+
+    
+            
 
    
 
