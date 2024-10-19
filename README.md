@@ -1111,12 +1111,18 @@ use App\Models\Order;
           
           // validate the data before insert it in the database :
 
-          $validate = Validate::make($request -> all() , [
+          $validator = Validate::make($request -> all() , [
                 'name' => 'required',
                 'email' => 'required|email',
                 'password' => 'required|min:8',
 
           ]);
+
+          // if the data is not valid return the error message in new page :
+
+            if ($validator -> fails()) {
+                return $validator -> errors() -> first();
+            }
 
         User::create([
             'name' => $request->name,
@@ -1138,12 +1144,7 @@ use App\Models\Order;
         1. add in the validation function in the controller :
     
 ```sh
-            $validate = Validate::make($request -> all() , [
-                    'name' => 'required',
-                    'email' => 'required|email',
-                    'password' => 'required|min:8',
-    
-            ] , [
+          $messages = [
                          // costimize the validation messages (on arabic) :
                 'name.required' => 'الاسم مطلوب',
                 'email.required' => 'البريد الالكتروني مطلوب',
@@ -1151,13 +1152,100 @@ use App\Models\Order;
                 'password.required' => 'كلمة المرور مطلوبة',
                 'password.min' => 'كلمة المرور يجب ان تكون اكبر من 8 حروف',
               
-            ]);
+            ];
+
+              
+            $validator = Validate::make($request -> all() , [
+                    'name' => 'required',
+                    'email' => 'required|email',
+                    'password' => 'required|min:8',
+    
+            ] , $messages); );
 ``` 
             
 
 ***
 + 5. ***Show error messages in the form*** :
 ***
+
+    1. in the view file (orders.blade.php ):
+
+```sh
+
+    @if(Session::has('success'))  // the Session::has('success') to check if the success message is exist or not.
+        <p>{{Session::get('success')}}</p> // to get the success message from the controller and show it.
+    @endif
+    
+
+    <form method="POST" action="{{route('insert')}}">
+        @csrf
+        <input type="text" name="name">
+        // to show the error message :
+        @erorr('name')
+            <small>{{$message}}</small>
+        @enderror
+
+        <input type="text" name="email">
+        //  to show the error message :
+        @erorr('email')
+            <small>{{$message}}</small>
+        @enderror
+
+        <input type="text" name="password">
+        //  to show the error message :
+        @erorr('password')
+            <small>{{$message}}</small>
+        @enderror
+
+        <button type="submit">insert</button>
+    </form>
+
+```
+
+    2. in the controller file :
+
+```sh
+     
+     $messages = [
+                         // costimize the validation messages (on arabic) :
+                'name.required' => 'الاسم مطلوب',
+                'email.required' => 'البريد الالكتروني مطلوب',
+                'email.email' => 'البريد الالكتروني غير صحيح',
+                'password.required' => 'كلمة المرور مطلوبة',
+                'password.min' => 'كلمة المرور يجب ان تكون اكبر من 8 حروف',
+              
+            ];
+
+              
+            $validator = Validate::make($request -> all() , [
+                    'name' => 'required',
+                    'email' => 'required|email',
+                    'password' => 'required|min:8',
+    
+            ] , $messages); );
+
+            if ($validator -> fails()) {
+                return redirect()->back()->withErrors($validator)->withInput($request -> all());
+            }
+
+
+            App\Models\Order::create([
+                'name' => $request -> name,
+                'category' => $request -> category,
+                'description' => $request -> description,
+    ]);
+
+    return redirect()->back()->with('success', 'تم اضافة الطلب بنجاح');  // to show the success message
+
+```
+
+
+***
++ 6. ***update data in the database using a form*** :
+***
+
+
+
 
 
     

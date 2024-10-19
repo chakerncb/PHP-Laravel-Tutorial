@@ -10,6 +10,13 @@
                     <div class="card mb-5">
                         <div class="card-body p-sm-5">
                             <h2 class="text-center mb-4">add your order</h2>
+                            <br>
+                            @if (Session::has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{Session::get('success')}}
+                            </div>
+                            @endif
+                            <br>
                             <form method="POST" action="{{route('orders.store')}}">
                                @csrf
                                 <!-- Start: Success Example -->
@@ -21,6 +28,10 @@
                                         name="name"
                                         placeholder="Name"
                                     />
+                                    @error('name')
+                                    <small class="form-text text-danger">{{$message}}</small>    
+                                    @enderror
+                                    
                                 </div>
                                 <!-- End: Success Example --><!-- Start: Error Example -->
                                 <div class="mb-3">
@@ -30,6 +41,10 @@
                                         <option>{{$category}}</option>
                                         @endforeach
                                     </select>
+                                    @error('category')
+                                    <small class="form-text text-danger">{{$message}}</small>    
+                                    @enderror
+                                    
                                     </div>
                                 </div>
                                 
@@ -42,6 +57,10 @@
                                         rows="6"
                                         placeholder="description"
                                     ></textarea>
+                                    @error('description')
+                                    <small class="form-text text-danger">{{$message}}</small>    
+                                    @enderror
+                                    
                                 </div>
                                 <div>
                                     <button

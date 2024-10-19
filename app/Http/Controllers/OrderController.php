@@ -49,8 +49,9 @@ class OrderController extends Controller
 
     // if validation fails return the errors
        if ($validator -> fails()) {
-           return $validator -> errors() -> first();
+           return redirect()->back()->withErrors($validator)->withInput($request -> all());
        }
+
 
 
 
@@ -61,7 +62,7 @@ class OrderController extends Controller
         'description' => $request -> description,
     ]);
 
-    return 'Order created successfully';
+    return redirect()->back()->with('success', 'تم اضافة الطلب بنجاح');
 
 }
 
