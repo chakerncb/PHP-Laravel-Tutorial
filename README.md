@@ -1335,10 +1335,43 @@ use App\Models\Order;
 
 >    composer require mcamara/laravel-localization
 
+   - and just complete the steps in the [Documentation](https://github.com/mcamara/laravel-localization) of the package.
 
-   2. type this command In order to edit the default configuration you may execute:
 
-> php artisan vendor:publish --provider="Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider"
+   2. in the view file :
+
+      - to show the languages :
+
+```sh
+        <ul>
+            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                <li>
+                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        {{ $properties['native'] }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+
+```     
+
+
+  3. in the route file :
+
+```sh
+
+    Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function() {
+
+         // all your routes
+
+
+    });
+
+``` 
+
+***
+
+ 
 
 
 

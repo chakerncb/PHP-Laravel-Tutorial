@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers;
+use Mcamara\LaravelLocalization\LanguageNegotiator;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,22 +17,29 @@ use App\Http\Controllers;
 |
 */
 
- Auth::routes(['verify' => true]);
- Route::get('/' , 'App\Http\Controllers\Front\UserController@index') -> name('index');
- Route::get('/resume' , 'App\Http\Controllers\Front\UserController@resume') -> name('resume');
- Route::get('/contact' , 'App\Http\Controllers\Front\UserController@contact') -> name('contact');
- Route::get('/projects' , 'App\Http\Controllers\Front\UserController@projects') -> name('projects');
- Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']) -> middleware('verified') -> name('home');
-
- Route::get('fillables' , 'App\Http\Controllers\CrudController@getorders');
 
 
- Route::group(['prefix' => 'order'] , function (){
-
-  //  Route::get('insert' , 'App\Http\Controllers\OrderController@insert');
-
-    Route::get('create' , 'App\Http\Controllers\OrderController@create');  
-    Route::post('store' , 'App\Http\Controllers\OrderController@store') -> name('orders.store');  
+    Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()
+{
+	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+  Auth::routes(['verify' => true]);
+  Route::get('/' , 'App\Http\Controllers\Front\UserController@index') -> name('index');
+  Route::get('/resume' , 'App\Http\Controllers\Front\UserController@resume') -> name('resume');
+  Route::get('/contact' , 'App\Http\Controllers\Front\UserController@contact') -> name('contact');
+  Route::get('/projects' , 'App\Http\Controllers\Front\UserController@projects') -> name('projects');
+  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']) -> middleware('verified') -> name('home');
+ 
+  Route::get('fillables' , 'App\Http\Controllers\CrudController@getorders');
+ 
+ 
+  Route::group(['prefix' => 'order'] , function (){
+ 
+   //  Route::get('insert' , 'App\Http\Controllers\OrderController@insert');
+ 
+     Route::get('create' , 'App\Http\Controllers\OrderController@create');  
+     Route::post('store' , 'App\Http\Controllers\OrderController@store') -> name('orders.store');  
+ 
+});
 
 
  });
