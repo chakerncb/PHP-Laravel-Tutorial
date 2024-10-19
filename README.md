@@ -1248,6 +1248,101 @@ use App\Models\Order;
 
 
 
+
+***
+## 9. multi languages :
+***
+
++ 1. ***what is multi languages*** :
+***
+
+    + it's a way to make the website in many languages.
+
+***
++ 2. ***how to make a multi languages*** :
+***
+
+    1. create a lang file :
+
+>    php artisan make:lang <langName>
+    
+        2. in the lang file :
+    
+    ```sh
+    
+        return [
+            'welcome' => 'اهلا بك',
+        ];
+    
+    ```
+    
+        3. in the view file :
+    
+    ```sh
+    
+        {{__('langName.welcome')}}
+    
+    ```
+
+***
+3. ***make validation messages multi lang*** :
+***
+
+    1. in the lang file :
+
+```sh
+
+    return [
+        'name.required' => 'الاسم مطلوب',
+        'email.required' => 'البريد الالكتروني مطلوب',
+        'email.email' => 'البريد الالكتروني غير صحيح',
+        'password.required' => 'كلمة المرور مطلوبة',
+        'password.min' => 'كلمة المرور يجب ان تكون اكبر من 8 حروف',
+      
+    ];
+
+```
+
+    2. in the controller file :
+
+```sh
+
+    $messages = [
+        'name.required' => __('langName.name.required'),
+        'email.required' => __('langName.email.required'),
+        'email.email' => __('langName.email.email'),
+        'password.required' => __('langName.password.required'),
+        'password.min' => __('langName.password.min'),
+      
+    ];
+
+      
+    $validator = Validate::make($request -> all() , [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+
+    ] , $messages); );
+
+```
+
+***
+4. ***change the language*** :
+
+    - using macamara package :
+
+   1. install the package :
+
+>    composer require mcamara/laravel-localization
+
+
+   2. type this command In order to edit the default configuration you may execute:
+
+> php artisan vendor:publish --provider="Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider"
+
+
+
+
     
             
 

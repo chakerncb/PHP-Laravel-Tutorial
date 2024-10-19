@@ -35,12 +35,13 @@ class OrderController extends Controller
       $messages = [
            // custom error messages (on arabic)
 
-                'name.required' => 'الاسم مطلوب',
-                'name.unique' => 'الاسم موجود مسبقا',
-                'category.required' => 'التصنيف مطلوب',
-                'description.required' => 'الوصف مطلوب',
-                'description.max' => 'الوصف يجب ان لا يتجاوز 255 حرف',
-                'description.min' => 'الوصف يجب ان لا يقل عن 10 حروف',
+                'name.required' => __('messages.name_required'),
+                'name.unique' => __('messages.name_uniqe'),
+                'category.required' => __('messages.category_required'),
+                'description.required' => __('messages.description_required'),
+                'description.min' => __('messages.description_min'),
+                'description.max' => __('messages.description_max'),
+                'description' => __('messages.description'),
 
 
       ];
