@@ -1,7 +1,6 @@
 @extends('front.layouts.master')
 
 @section('content')
-<body>
     <!-- Start: Contact Form Basic -->
     <section class="position-relative py-4 py-xl-5">
         <div class="container position-relative">
@@ -77,7 +76,5 @@
             </div>
         </div>
     </section>
-    <!-- End: Contact Form Basic -->
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-           
+    <!-- End: Contact Form Basic -->           
     @endsection
