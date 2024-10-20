@@ -1109,20 +1109,6 @@ use App\Models\Order;
         
     public function insert (Request $request) { // to get the data from the form
           
-          // validate the data before insert it in the database :
-
-          $validator = Validate::make($request -> all() , [
-                'name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required|min:8',
-
-          ]);
-
-          // if the data is not valid return the error message in new page :
-
-            if ($validator -> fails()) {
-                return $validator -> errors() -> first();
-            }
 
         User::create([
             'name' => $request->name,
@@ -1138,13 +1124,16 @@ use App\Models\Order;
 ```
 
 ***
-+ 4. ***Costimize the validation messages*** :
++ 4. ***validate data before insert it in the database*** :
 ***
     
         1. add in the validation function in the controller :
     
 ```sh
-          $messages = [
+
+            public function insert (Request $request) { // to get the data from the form
+          
+                    $messages = [
                          // costimize the validation messages (on arabic) :
                 'name.required' => 'الاسم مطلوب',
                 'email.required' => 'البريد الالكتروني مطلوب',
@@ -1161,6 +1150,23 @@ use App\Models\Order;
                     'password' => 'required|min:8',
     
             ] , $messages); );
+
+          // if the data is not valid return the error message in new page :
+
+            if ($validator -> fails()) {
+                return $validator -> errors() -> all();
+            }
+
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return 'your order created sucssesfuly'; // to return to the form after insert the data
+
+        
 ``` 
             
 
@@ -1240,9 +1246,63 @@ use App\Models\Order;
 ```
 
 
+
+
 ***
-+ 6. ***update data in the database using a form*** :
++ 6. ***Validate the data in the request*** (the best way) :
 ***
+
+    1. create a request :
+
+>    php artisan make:request <requestName>
+
+    2. in the request file :
+
+```sh
+
+     // put the rules of the validation :
+    public function rules()
+    {
+        return [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ];
+    }
+
+      // costimize the validation messages .
+    public function messages()
+    {
+        return [
+            'name.required' => 'الاسم مطلوب',
+            'email.required' => 'البريد الالكتروني مطلوب',
+            'email.email' => 'البريد الالكتروني غير صحيح',
+            'password.required' => 'كلمة المرور مطلوبة',
+            'password.min' => 'كلمة المرور يجب ان تكون اكبر من 8 حروف',
+          
+        ];
+    }
+
+```
+
+    3. in the controller file :
+
+```sh
+
+    public function insert (RequestName $request) { // to get the data from the form
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return 'your order created sucssesfuly'; // to return to the form after insert the data
+
+    }
+
+```
+
 
 
 
@@ -1303,26 +1363,21 @@ use App\Models\Order;
 
 ```
 
-    2. in the controller file :
+    2. in the request file :
 
 ```sh
 
-    $messages = [
-        'name.required' => __('langName.name.required'),
-        'email.required' => __('langName.email.required'),
-        'email.email' => __('langName.email.email'),
-        'password.required' => __('langName.password.required'),
-        'password.min' => __('langName.password.min'),
-      
-    ];
-
-      
-    $validator = Validate::make($request -> all() , [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-
-    ] , $messages); );
+    public function messages()
+    {
+        return [
+            'name.required' => __('messages.name.required'),
+            'email.required' => __('messages.email.required'),
+            'email.email' => __('messages.email.email'),
+            'password.required' => __('messages.password.required'),
+            'password.min' => __('messages.password.min'),
+          
+        ];
+    }
 
 ```
 

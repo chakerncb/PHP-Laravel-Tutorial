@@ -22,7 +22,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:orders,name',
+                'name' => 'required|unique:orders,name',
                 'category' => 'required',
                 'description' => 'required|max:255|min:10',
         ];
