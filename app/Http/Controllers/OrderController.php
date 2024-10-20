@@ -7,6 +7,7 @@ use App\Http\Requests\OrderRequest;
 use Illuminate\Http\Request;
 use app\Models\Order;
 use app\Models\Order_category;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Validator;
 
 class OrderController extends Controller
@@ -14,8 +15,8 @@ class OrderController extends Controller
     //
 
     public function create () {
-        $ord_catg = App\Models\Order_category::pluck('name');
-       return view('front.orders', compact('ord_catg'));
+        $ord_catg = app\Models\Order_category::pluck('name');
+       return view('front.orders.orders', compact('ord_catg'));
 
        // using pulck method
 
@@ -58,7 +59,7 @@ class OrderController extends Controller
 
 
     //
-     App\Models\Order::create([
+    app\Models\Order::create([
         'name' => $request -> name,
         'category' => $request -> category,
         'description' => $request -> description,
@@ -67,5 +68,24 @@ class OrderController extends Controller
     return redirect()->back()->with('success', 'تم اضافة الطلب بنجاح');
 
 }
+
+  
+   public function getAllOrders () {
+       $orders = app\Models\Order::select(
+                //     'name_'.LaravelLocalization::getCurrentLocale().' as name',
+                //    'category_'.LaravelLocalization::getCurrentLocale().' as category' ,
+                //    'description_'.LaravelLocalization::getCurrentLocale().' as description' ,
+
+                'id',
+                'name',
+                'category',
+                'description',
+
+           )->get();
+
+          return view('front.orders.index', compact('orders'));
+   }
+
+
 
 }

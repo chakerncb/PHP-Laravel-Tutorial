@@ -963,72 +963,8 @@
             }
 ```
 
-***
-+ 5. ***how to get data from the database*** :
-***
-    - methods :  get , all , find , where , first , select , orderBy , limit , count , max , min , avg , sum , exists , doesntExist , pluck , firstOrCreate , firstOrNew , create , update , delete , destroy , save , push , fresh , findOrFail , findOrfail , findOrNew , findMany , find , findMany , findManyOrFail , findManyOrfail , findManyOrNew , findManyOrNew , findManyOrFail , findManyOrfail .
-               
-
-   1. get all the data :
-
-```sh
-
-    $data = User::all();
-
-```
-
-   2.  get specific columns :
-
-```sh
-
-    $data = User::select('name' , 'id')->get();
-
-```
-
-
-  3. get the first row :
-    
-```sh
-    
-     $data = User::first();
-    
-```
-    
-   4. get the first row that match the condition :
-     
-```sh
-    
-     $data = User::where('id' , 1)->first();
-    
-```
-
-***
-+ 6. ***how to insert data in the database*** :
-***
-
-   1. insert data : (insert one row to the orders table) : 
-       - in the controller :
-
-
-```sh
-use App\Models\Order;
-
-
-    public function insert () {
-        
-    Order::create([
-            'id' => 1,
-            'name' => 'Order 1',
-            'category' => 'app',
-            'description' => 'Description 1',
-        ]);
-
-    }
-
-```
-
-***
 ## 8. Database :
+
 
 + 1. ***what is migration*** :
 ***
@@ -1069,7 +1005,72 @@ use App\Models\Order;
 
 
 ***
-+ 3. ***insert data in the database using a form*** :
++ 3. ***how to get data from the database*** :
+***
+    - methods :  get , all , find , where , first , select , orderBy , limit , count , max , min , avg , sum , exists , doesntExist , pluck , firstOrCreate , firstOrNew , create , update , delete , destroy , save , push , fresh , findOrFail , findOrfail , findOrNew , findMany , find , findMany , findManyOrFail , findManyOrfail , findManyOrNew , findManyOrNew , findManyOrFail , findManyOrfail .
+               
+
+   1. get all the data :
+
+```sh
+
+    $data = User::all();
+
+```
+
+   2.  get specific columns :
+
+```sh
+
+    $data = User::select('name' , 'id')->get();
+
+```
+
+
+  3. get the first row :
+    
+```sh
+    
+     $data = User::first();
+    
+```
+    
+   4. get the first row that match the condition :
+     
+```sh
+    
+     $data = User::where('id' , 1)->first();
+    
+```
+
+***
++ 4. ***how to insert data in the database*** :
+***
+
+   1. insert data : (insert one row to the orders table) : 
+       - in the controller :
+
+
+```sh
+use App\Models\Order;
+
+
+    public function insert () {
+        
+    Order::create([
+            'id' => 1,
+            'name' => 'Order 1',
+            'category' => 'app',
+            'description' => 'Description 1',
+        ]);
+
+    }
+
+```
+
+
+***
++ 5. ***insert data in the database using a form*** :
 ***
 
     1. in the view file (create.blade.php ):
@@ -1124,7 +1125,7 @@ use App\Models\Order;
 ```
 
 ***
-+ 4. ***validate data before insert it in the database*** :
++ 6. ***validate data before insert it in the database*** :
 ***
     
         1. add in the validation function in the controller :
@@ -1171,7 +1172,7 @@ use App\Models\Order;
             
 
 ***
-+ 5. ***Show error messages in the form*** :
++ 7. ***Show error messages in the form*** :
 ***
 
     1. in the view file (orders.blade.php ):
@@ -1249,7 +1250,7 @@ use App\Models\Order;
 
 
 ***
-+ 6. ***Validate the data in the request*** (the best way) :
++ 8. ***Validate the data in the request*** (the best way) :
 ***
 
     1. create a request :

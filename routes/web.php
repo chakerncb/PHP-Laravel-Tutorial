@@ -19,27 +19,25 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 
-    Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()
-{
+Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function() {
+
 	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-  Auth::routes(['verify' => true]);
+
+  Auth::routes(['verify' => true]); // this will add the email verification routes
   Route::get('/' , 'App\Http\Controllers\Front\UserController@index') -> name('index');
   Route::get('/resume' , 'App\Http\Controllers\Front\UserController@resume') -> name('resume');
   Route::get('/contact' , 'App\Http\Controllers\Front\UserController@contact') -> name('contact');
   Route::get('/projects' , 'App\Http\Controllers\Front\UserController@projects') -> name('projects');
   Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']) -> middleware('verified') -> name('home');
  
-  Route::get('fillables' , 'App\Http\Controllers\CrudController@getorders');
+
+  Route::group(['prefix' => 'order'] , function () {
  
- 
-  Route::group(['prefix' => 'order'] , function (){
- 
-   //  Route::get('insert' , 'App\Http\Controllers\OrderController@insert');
- 
+     Route::get('show' , 'App\Http\Controllers\OrderController@getAllOrders');
      Route::get('create' , 'App\Http\Controllers\OrderController@create');  
      Route::post('store' , 'App\Http\Controllers\OrderController@store') -> name('orders.store');  
  
-});
+    });
 
 
  });
