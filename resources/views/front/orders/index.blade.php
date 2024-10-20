@@ -11,10 +11,10 @@
 
                             <table>
                                 <tr>
-                                    <th>Order ID</th>
-                                    <th>Order Name</th>
-                                    <th>Order Category</th>
-                                    <th>Order Description</th>
+                                    <th>{{__('messages.order_id')}}</th>
+                                    <th>{{__('messages.order_name')}}</th>
+                                    <th>{{__('messages.order_category')}}</th>
+                                    <th>{{__('messages.order_description')}}</th>
                                 </tr>
                                 @foreach($orders as $order)
                                 <tr>

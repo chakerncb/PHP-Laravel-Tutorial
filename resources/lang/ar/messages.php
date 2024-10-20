@@ -58,6 +58,10 @@ return [
     'token_resend_check' => 'قبل المتابعة، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق الجديد.',
 
 
+    'order_id' => 'رقم الطلب',
+    'order_name' => 'اسم الطلب',
+    'order_category' => 'القسم',
+    'order_description' => 'الوصف',
     'order_not_found' => 'الطلب غير موجود',
     'order_created' => 'تم انشاء الطلب بنجاح',
     'order_not_created' => 'لم يتم انشاء الطلب',
