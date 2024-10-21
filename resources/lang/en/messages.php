@@ -158,4 +158,6 @@ return [
     'password' => 'Password',
     'remember_me' => 'Remember me',
     'forgot_your_password?' => 'Forgot your password?',
+
+    'You are logged in!' => 'You are logged in!'
 ];

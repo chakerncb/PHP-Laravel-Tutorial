@@ -10,7 +10,7 @@ return [
     'mobile' => 'Mobile',
     'password' => 'Password',
     'remember_me' => 'Remember Me',
-    'forgot' => 'Forgot Your Password?',
+    'forgot_your_password?' => 'Forgot Your Password?',
     'name' => 'Name',
     'confirm' => 'Confirm Password',
     'reset' => 'Reset Password',
@@ -31,4 +31,7 @@ return [
     'verify_resend_check' => 'Before proceeding, please check your email for a verification link.',
     'verify_resend_sent' => 'A fresh verification link has been sent to your email address.',
     'verify_resend_request' => 'click here to request another',
+
+    'You are logged in!' => 'You are logged in!'
+
 ];
