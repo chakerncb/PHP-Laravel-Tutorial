@@ -23,9 +23,23 @@
                                     <input
                                         class="form-control"
                                         type="text"
-                                        id="name"
-                                        name="name"
-                                        placeholder="Name"
+                                        id="name_en"
+                                        name="name_en"
+                                        placeholder="Name in English"
+                                    />
+                                    @error('name')
+                                    <small class="form-text text-danger">{{$message}}</small>    
+                                    @enderror
+                                    
+                                </div>
+
+                                <div class="mb-3">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="name_ar"
+                                        name="name_ar"
+                                        placeholder="Arabic Name"
                                     />
                                     @error('name')
                                     <small class="form-text text-danger">{{$message}}</small>    
@@ -55,6 +69,20 @@
                                         name="description"
                                         rows="6"
                                         placeholder="description"
+                                    ></textarea>
+                                    @error('description')
+                                    <small class="form-text text-danger">{{$message}}</small>    
+                                    @enderror
+                                    
+                                </div>
+
+                                <div class="mb-3">
+                                    <textarea
+                                        class="form-control"
+                                        id="description_ar"
+                                        name="description_ar"
+                                        rows="6"
+                                        placeholder="description in Arabic"
                                     ></textarea>
                                     @error('description')
                                     <small class="form-text text-danger">{{$message}}</small>    

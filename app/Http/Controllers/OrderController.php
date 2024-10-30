@@ -15,12 +15,8 @@ class OrderController extends Controller
     //
 
     public function create () {
-        $ord_catg = app\Models\Order_category::pluck('name');
+        $ord_catg = app\Models\Order_category::pluck('name_'.LaravelLocalization::getCurrentLocale());
        return view('front.orders.orders', compact('ord_catg'));
-
-       // using pulck method
-
-       // $ord_catg = App\Models\Order_category::pluck('name');
    }
 
 
@@ -72,15 +68,10 @@ class OrderController extends Controller
   
    public function getAllOrders () {
        $orders = app\Models\Order::select(
-                //     'name_'.LaravelLocalization::getCurrentLocale().' as name',
-                //    'category_'.LaravelLocalization::getCurrentLocale().' as category' ,
-                //    'description_'.LaravelLocalization::getCurrentLocale().' as description' ,
-
-                'id',
-                'name',
-                'category',
-                'description',
-
+                   'id',
+                   'name_'.LaravelLocalization::getCurrentLocale().' as name',
+                   'category',
+                   'description_'.LaravelLocalization::getCurrentLocale().' as description'
            )->get();
 
           return view('front.orders.index', compact('orders'));
