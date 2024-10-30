@@ -35,7 +35,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
  
      Route::get('show' , 'App\Http\Controllers\OrderController@getAllOrders');
      Route::get('create' , 'App\Http\Controllers\OrderController@create');  
-     Route::post('store' , 'App\Http\Controllers\OrderController@store') -> name('orders.store');  
+     Route::post('store' , 'App\Http\Controllers\OrderController@store') -> name('orders.store');
+     Route::get('edit/{order_id}' , 'App\Http\Controllers\OrderController@edit') -> name('orders.edit');
+       Route::post('update/{order_id}' , 'App\Http\Controllers\OrderController@update') -> name('orders.update');  
  
     });
 

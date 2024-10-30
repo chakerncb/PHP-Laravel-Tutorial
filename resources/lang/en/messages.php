@@ -54,6 +54,14 @@ return [
     'token_not_resend' => 'Token not resent',
     'token_resend_check' => 'Before proceeding, please check your email for a new verification link.',
 
+    'order_id' => 'Order ID',
+    'order_name' => 'Order Name',
+    'order_category' => 'Order Category',
+    'order_description' => 'Order Description',
+    'order_price' => 'Order Price',
+    'order_quantity' => 'Order Quantity',
+    'order_status' => 'Order Status',
+    'order_action' => 'Action',
     'order_not_found' => 'Order not found',
     'order_created' => 'Order created successfully',
     'order_not_created' => 'Order not created',
@@ -64,6 +72,7 @@ return [
     'order_already_verified' => 'Order is already verified',
     'order_verified' => 'Order verified successfully',
     'order_not_verified' => 'Order not verified',
+
 
     'product_not_found' => 'Product not found',
     'product_created' => 'Product created successfully',
@@ -133,6 +142,7 @@ return [
     'updated_at' => 'Updated at',
     'deleted_at' => 'Deleted at',
     'actions' => 'Actions',
+    'update' => 'Update',
     'edit' => 'Edit',
     'delete' => 'Delete',
     'show' => 'Show',

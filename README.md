@@ -1304,6 +1304,57 @@ use App\Models\Order;
 
 ```
 
+***
++ 9. ***Edite & update data in the database*** :
+***
+
+    1. in the view file (edit.blade.php ):
+
+```sh
+
+    <form method="POST" action="{{route('update' , $data->id)}}">
+        @csrf
+        <input type="text" name="name" value="{{$data->name}}">
+        <input type="text" name="email" value="{{$data->email}}">
+        <input type="text" name="password" value="{{$data->password}}">
+        <button type="submit">update</button>
+    </form>
+
+```
+
+    2. in the route file :
+
+```sh
+
+    Route::get('/edit/{id}' , 'App\Http\Controllers\HomeController@edit')->name('edit');
+    Route::post('/update/{id}' , 'App\Http\Controllers\HomeController@update')->name('update');
+
+```
+
+    3. in the controller file :
+
+```sh
+
+    public function edit ($id) {
+        $data = User::find($id);
+        return view('edit' , compact('data'));
+    }
+
+    public function update (Request $request , $id) {
+        $data = User::find($id);
+        $data->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return 'your order updated sucssesfuly';
+    }
+
+```
+
+
+
 
 
 
@@ -1426,7 +1477,36 @@ use App\Models\Order;
 ``` 
 
 ***
+5. ***get the data from database according to the language***
+***
+  
+  1. create the database :
 
+     - create a table (like orders) with the colomun according to the languages (like name_en , name_ar) .
+
+  2. get the data from the database :
+
+```sh
+
+    $data = Order::select('name_' . LaravelLocalization::getCurrentLocale() . ' as name')->get();
+
+```
+       
+ - (. LaravelLocalization::getCurrentLocale()) to get the current language.
+
+    like :
+         in the english language the column will be name_en
+            in the arabic language the column will be name_ar
+
+
+    - Note : 
+         - when you add a new column in the table you must add the column in the model.
+
+
+
+***
+
+   
  
 
 

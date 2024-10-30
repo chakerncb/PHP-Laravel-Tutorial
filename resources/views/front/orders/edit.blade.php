@@ -16,15 +16,17 @@
                             </div>
                             @endif
                             <br>
-                            <form method="POST" action="{{route('orders.store')}}">
+                            <form method="POST" action="{{route('orders.update' ,$order -> id)}}">
                                @csrf
                                 <!-- Start: Success Example -->
                                 <div class="mb-3">
+                                    <label for="name_en">Name in English</label>
                                     <input
                                         class="form-control"
                                         type="text"
                                         id="name_en"
                                         name="name_en"
+                                        value="{{$order->name_en}}"
                                         placeholder="Name in English"
                                     />
                                     @error('name_en')
@@ -34,10 +36,12 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="name_ar">Name in Arabic</label>
                                     <input
                                         class="form-control"
                                         type="text"
                                         id="name_ar"
+                                        value="{{$order->name_ar}}"
                                         name="name_ar"
                                         placeholder="Arabic Name"
                                     />
@@ -48,11 +52,13 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="name_ar">Name in French</label>
                                     <input
                                         class="form-control"
                                         type="text"
-                                        id="name_ar"
-                                        name="name_ar"
+                                        id="name_fr"
+                                        value="{{$order->name_fr}}"
+                                        name="name_fr"
                                         placeholder="Arabic Name"
                                     />
                                     @error('name_fr')
@@ -62,28 +68,33 @@
                                 </div>
                                 <!-- End: Success Example --><!-- Start: Error Example -->
                                 <div class="mb-3">
-                                    <select name="category" id="category">
-                                        <option value="">Select Category</option>
-                                        @foreach($ord_catg as $category)
-                                        <option>{{$category}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('category')
-                                    <small class="form-text text-danger">{{$message}}</small>    
-                                    @enderror
-                                    
+                                    <label for="category">Order Category</label>
+                                    <div class="mb-3">
+                                        <input
+                                            class="form-control"
+                                            id="Category"
+                                            name="category"
+                                            value="{{$order->category}}"
+                                            placeholder="Category"
+                                        ></input>
+                                        @error('category')
+                                        <small  class="form-text text-danger">{{$message}}</small>    
+                                        @enderror
+                                        
+                                    </div>
                                     </div>
                                 </div>
                                 
                                 <!-- End: Error Example -->
                                 <div class="mb-3">
-                                    <textarea
+                                    <label for="description_en">Description in English</label>
+                                    <input
                                         class="form-control"
                                         id="description_en"
                                         name="description_en"
-                                        rows="6"
+                                        value="{{$order->description_en}}"
                                         placeholder="description in English"
-                                    ></textarea>
+                                    ></input>
                                     @error('description_en')
                                     <small class="form-text text-danger">{{$message}}</small>    
                                     @enderror
@@ -91,13 +102,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <textarea
+                                    <label for="description_ar">Description in Arabic</label>
+                                    <input
                                         class="form-control"
                                         id="description_ar"
                                         name="description_ar"
-                                        rows="6"
+                                        value="{{$order->description_ar}}"
                                         placeholder="description in Arabic"
-                                    ></textarea>
+                                    ></input>
                                     @error('description_ar')
                                     <small class="form-text text-danger">{{$message}}</small>    
                                     @enderror
@@ -105,13 +117,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <textarea
+                                    <label for="description_fr">Description in French</label>
+                                    <input
                                         class="form-control"
                                         id="description_fr"
                                         name="description_fr"
-                                        rows="6"
+                                        value="{{$order->description_fr}}"
                                         placeholder="description in french"
-                                    ></textarea>
+                                    ></input>
                                     @error('description_fr')
                                     <small class="form-text text-danger">{{$message}}</small>    
                                     @enderror

@@ -15,6 +15,7 @@
                                     <th>{{__('messages.order_name')}}</th>
                                     <th>{{__('messages.order_category')}}</th>
                                     <th>{{__('messages.order_description')}}</th>
+                                    <th>{{__('messages.actions')}}</th>
                                 </tr>
                                 @foreach($orders as $order)
                                 <tr>
@@ -22,6 +23,7 @@
                                     <td>{{$order->name}}</td>
                                     <td>{{$order->category}}</td>
                                     <td>{{$order->description}}</td>
+                                    <td><a href="{{URL('order/edit/'.$order->id)}}" class="btn btn-success">{{__('messages.edit')}}</a></td>
                                 </tr>
                                 @endforeach
                             </table>

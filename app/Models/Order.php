@@ -11,9 +11,13 @@ class Order extends Model
 
     protected $fillable = [
         'id',
-        'name',
+        'name_ar',
+        'name_en',
+        'name_fr',
         'category',
-        'description',
+        'description_ar',
+        'description_en',
+        'description_fr',
         'created_at',
         'updated_at',
     ];

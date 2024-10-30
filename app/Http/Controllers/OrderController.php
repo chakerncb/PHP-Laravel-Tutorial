@@ -77,6 +77,60 @@ class OrderController extends Controller
           return view('front.orders.index', compact('orders'));
    }
 
+   public function edit ($order_id) {
+      //  App\Models\Order::findOrFail($order_id);  // check if the order_id is exist in the database and give an error if not.
+     $id =  App\Models\Order::find($order_id);  
+
+        if(!$id) {
+            return redirect()->back();
+            }  // if the order_id is not exist in the database redirect back to the previous page.
+
+            $ord_catg = app\Models\Order_category::pluck('name_'.LaravelLocalization::getCurrentLocale());
+            $order = App\Models\Order::select(
+                    'id',
+                    'name_ar',
+                    'name_en',
+                    'name_fr',
+                    'category',
+                    'description_ar',
+                    'description_en',
+                    'description_fr'
+
+             )->find($order_id);
+
+        return view('front.orders.edit', compact('order'));
 
 
+}
+
+  
+   public function update($order_id , OrderRequest $request) {
+
+    // validate the request in the order request file
+
+    // check if the order_id is exist in the database and give an error if not.
+
+    $order =  App\Models\Order::find($order_id);
+
+    if(!$order) {
+        return redirect()->back();
+        }  // if the order_id is not exist in the database redirect back to the previous page.
+
+    // update the order
+
+    //  $order -> update($request -> all()); // update all the fields in the order table
+
+    $order -> update([
+        'name_ar' => $request -> name_ar,
+        'name_en' => $request -> name_en,
+        'name_fr' => $request -> name_fr,
+        'category' => $request -> category,
+        'description_ar' => $request -> description_ar,
+        'description_en' => $request -> description_en,
+        'description_fr' => $request -> description_fr,
+    ]);
+
+    return redirect()->back()->with(['success' => 'تم تعديل الطلب بنجاح']);
+
+   }
 }
