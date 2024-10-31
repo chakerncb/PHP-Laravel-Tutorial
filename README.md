@@ -1,8 +1,8 @@
-#  ***Laravel Tutorial***
+# ***Laravel Tutorial***
 
-# I. Requirements :
+# I. Requirements
 
-1. ***Composer*** : 
+1. ***Composer*** :
 
    + to install the laravel project.
 
@@ -29,8 +29,7 @@
 
     + to run the npm commands.
 
-
-# II. Create new laravel project :
+# II. Create new laravel project
 
    1. go to public folder in the server.
 
@@ -54,19 +53,24 @@
 
 > localhost:8000
 
+# III. Start Coding
 
-# III. Start Coding :
-
-## 1. Routing :
+## 1. Routing
 
 + 1. ***what is route*** :
-***
-   + it's a way to make the user access the page by the url
 
 ***
-   + 2. ***make Simple Route*** :
+
++ it's a way to make the user access the page by the url
+
 ***
+
++ 2. ***make Simple Route*** :
+
+***
+
    1. in the route file :
+
 ```sh
      Route::get('/' , function () {
           return view('welcome');
@@ -80,14 +84,15 @@
 ```
 
    2. in the view file :
-    
+
 ```sh
       <a href="/test1">click here</a>
 ```
 
-    
 ***
-   + 3. ***Route with calling a controller*** :
+
++ 3. ***Route with calling a controller*** :
+
 ***
 
    1. in the route file :
@@ -103,8 +108,11 @@
           return view('app');
       }
 ```
+
 ***
-   + 4. ***Route with parameters*** :
+
++ 4. ***Route with parameters*** :
+
 ***
 
          1. required parameters :
@@ -115,7 +123,7 @@
     return ('this is algeria with id : ' . $id);
   });
 ```
-     
+
             2. optional parameters :
 
 ```sh
@@ -125,9 +133,13 @@
 
   }); 
 ```
+
 ***
-  + 5. ***Route with name*** :
-*** 
+
++ 5. ***Route with name*** :
+
+***
+
 1. the first way :
 
    + in the route file :
@@ -138,15 +150,18 @@
       }) -> name('algeria');
 ```
 
-   + in the view file :
++ in the view file :
 
 ```sh
       <a href="{{route('algeria')}}">click here</a>
 ```
 
 ***
-  + 6. ***Route with prefix*** :
+
++ 6. ***Route with prefix*** :
+
 ***
+
 1. the first way :
 
 ```sh
@@ -190,10 +205,12 @@
 ```
 
 ***
-  + 7. ***resource route*** :
+
++ 7. ***resource route*** :
+
 ***
 
- 1.  to make all the routes in the controller worked (index , create , store , show , edit , update , destroy) 
+ 1. to make all the routes in the controller worked (index , create , store , show , edit , update , destroy)
   the routes will be : /news , /news/create , /news/store , /news/{id} , /news/{id}/edit , /news/{id} , /news/{id}
 
   ```sh
@@ -204,13 +221,15 @@
 
    2. you can create a resource Controller by this command :
 
-   >   php artisan create:controller --resource
-
+   > php artisan create:controller --resource
 
 ***
-  + 8. ***New Route file*** :
+
++ 8. ***New Route file*** :
+
 ***  
-   + to make the routes in new file like (admin.php) worked you should add this line in RouteServiceProvider.php :
+
++ to make the routes in new file like (admin.php) worked you should add this line in RouteServiceProvider.php :
 
 ```sh
 
@@ -225,28 +244,29 @@
 ```
 
 ***
-## 2. add a middleware :
+
+## 2. add a middleware
 
 + 1. ***what is middleware*** :
+
 ***
 
-   + it's a code that run before the route to check if the user can access this route or not.
-       + like : 
++ it's a code that run before the route to check if the user can access this route or not.
+  + like :
             -auth : to check if the user is logged in or not.
             -verified : to check if the user is verified or not.
             -admin : to check if the user is admin or not.
             -guest : to check if the user is guest or not.
             -can : to check if the user can do this action or not.
-            -throttle : to check if the user make many requests in a short time or not. 
+            -throttle : to check if the user make many requests in a short time or not.
 
 + 2. ***how to make a middleware*** :
+
 ***
 
    1. create the middleware :
 
-
->    php artisan make:middleware <middlewareName>
-
+> php artisan make:middleware <middlewareName>
 
    3. add the middleware in the kernel.php :
 
@@ -260,7 +280,7 @@
 
    4. add a middleware in  route :
 
-```sh 
+```sh
   
     Route::get('/' , function () {
         return view('welcome');
@@ -269,7 +289,7 @@
 ```
 
    5. add a middleware in group of routes :
-    
+
 ```sh
 
     Route::group(['middleware' => 'auth'] , function () {
@@ -292,7 +312,7 @@
 
 ```
 
-   + and to add an exception inside the controller for a method just add :
++ and to add an exception inside the controller for a method just add :
 
 ```sh
 
@@ -303,11 +323,13 @@
 ```
 
 ***
-##  3. Views :
 
+## 3. Views
 
 ***
+
 + 1. ***to Show data in the view you must put it between*** :
+
 ***
 
 ```sh
@@ -315,8 +337,11 @@
 ```
 
 ***
+
 + 2. ***to send data to the view*** :
+
 ***
+
    1. in the route :
 
 ```sh
@@ -363,20 +388,26 @@
     <p> {{$data->age}} </p>
 
    ```
-***
-+ 3. ***call files in the view*** :
-***
-   + to call a files from the public folder like css, js file in the blade file you must do it like this :
 
- ```sh             
+***
+
++ 3. ***call files in the view*** :
+
+***
+
++ to call a files from the public folder like css, js file in the blade file you must do it like this :
+
+ ```sh
              href="{{URL::asset('css/style.css')}}"
  ```
 
 ***
-+ 4. ***view inheritens*** :
-***
-  + like when you wana to use one navbar and footer for many pages this is how : 
 
++ 4. ***view inheritens*** :
+
+***
+
++ like when you wana to use one navbar and footer for many pages this is how :
 
 1. use ( @yield - @extends - @section ) :
 
@@ -391,9 +422,9 @@
        //  footer
 
 ```
- 
-  + 2nd page (pages that contain the main content) :
-                  
+
++ 2nd page (pages that contain the main content) :
+
 ```sh
         @extends('nav-foot-page-name')
 
@@ -407,11 +438,13 @@
 
 2. use ( @include )     -- whe you wana ad just a part to all pages like navbar :
 
+***
+
++ 5. ***views languages*** :
 
 ***
-+ 5. ***views languages*** :
-***
-   + to make sentece or a word in the view multi language you can use this :
+
++ to make sentece or a word in the view multi language you can use this :
 
 1. in the view :
 
@@ -424,7 +457,7 @@
 
 + example path of arabic lang file :
 
-     >  \resources\lang\ar\home.php
+     > \resources\lang\ar\home.php
 
 ```sh
 
@@ -435,7 +468,9 @@
 ```
 
 ***
+
 + 6. ***conditions in the view*** :
+
 ***
 
   1. ***if condition*** :
@@ -499,34 +534,38 @@
 ```
   
 ***
-## 4. Login and Register :
+
+## 4. Login and Register
 
 ***
+
 + 1. ***make default login/register*** :
+
 ***
 
 1. install packajes :
 
->    composer require laravel/ui --dev   
+> composer require laravel/ui --dev
 
->    npm install
+> npm install
 
 2. create the vues using this command :
 
->    php artisan ui vue --auth
-
+> php artisan ui vue --auth
 
 3. create the deafult tables using this command :
 
->    php artisan migrate	
+> php artisan migrate
 
 ***
+
 + 3. ***what is csrf*** :
+
 ***
 
-  + it's a token that laravel generate to protect the form from the cross site request forgery must be added to the form :
++ it's a token that laravel generate to protect the form from the cross site request forgery must be added to the form :
 
-  + to add it to the form :
++ to add it to the form :
 
 ```sh
 
@@ -535,14 +574,16 @@
     </form>
 
 ```
-***
-+ 4. ***to make the login and register with the mobile number*** :
+
 ***
 
- 
-###  1. ***Regiser*** :
++ 4. ***to make the login and register with the mobile number*** :
+
+***
+
+### 1. ***Regiser***
   
-   + 1. in the register.blade.php add this :
++ 1. in the register.blade.php add this :
 
 ```sh
          <div class="row mb-3">
@@ -561,8 +602,7 @@
 
 ```
 
-
-   + 2. create the mobile field in the users table :
++ 2. create the mobile field in the users table :
 
 ```sh
 
@@ -570,7 +610,7 @@
 
 ```
   
-   + 3. add the mobile field in the User model :
++ 3. add the mobile field in the User model :
 
 ```sh
 
@@ -583,11 +623,11 @@
 
 ```
 
-   + 4. in the registerController.php :
++ 4. in the registerController.php :
   
       // 1. add the mobile field in the validation method :
 
-```sh 
+```sh
    protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -616,12 +656,9 @@
 
 ```
 
-   
+### 2. ***Login***
 
-
- ### 2. ***Login*** :
-
-  + 1. in the login.blade.php add this:
++ 1. in the login.blade.php add this:
 
 ```sh
 
@@ -641,7 +678,7 @@
 
 ```
 
-   + 2. create the mobile field in the users table :
++ 2. create the mobile field in the users table :
 
 ```sh
 
@@ -649,7 +686,7 @@
 
 ```
 
-   + 3. add the mobile field in the User model :
++ 3. add the mobile field in the User model :
 
 ```sh
           protected $fillable = [
@@ -661,9 +698,9 @@
 
 ```
 
-  + 4. in the *vendor\laravel\ui\auth-backend\AuthenticatesUsers.php* that trait that contain the login function :
++ 4. in the *vendor\laravel\ui\auth-backend\AuthenticatesUsers.php* that trait that contain the login function :
 
-   + to make the login just with the mobile number:
++ to make the login just with the mobile number:
 
 ```sh
 
@@ -675,7 +712,9 @@
 ```
 
 ***
+
 + 5. ***to make the login and register with the email Or the mobile number*** :
+
 ***
 
     + 1. in the login.blade.php add this:
@@ -716,12 +755,14 @@
 ```
 
 ***
-## 5. Verify the user :
+
+## 5. Verify the user
+
 ***
 
-  + make the user must verify his email before login.
++ make the user must verify his email before login.
 
-+ 1. *** in the route file*** :
++ 1. ***in the route file*** :
 
 ```sh
       // add the verify middleware to the route :
@@ -747,24 +788,28 @@
 ```
 
 ***
-## 6. task scheduling :
+
+## 6. task scheduling
 
 + 1. ***what is task scheduling*** :
+
 ***
 
-  + it's a way to make the laravel run a task in a specific time.
++ it's a way to make the laravel run a task in a specific time.
      like :
         - send an email every day at 8:00 am.
         - delete the data every week.
         - send a notification every month.
 
 ***
+
 + 2. ***how to make a task scheduling*** :
+
 ***
 
     1. create a task :
 
->    php artisan make:command <taskName>
+> php artisan make:command <taskName>
 
    2. in the task file :
 
@@ -780,9 +825,9 @@
 
 3. in the handle method :
     + example 01:
-    
-       - the task that make change in the database :
-    
+
+       + the task that make change in the database :
+
     ```sh
         
         // get all the users and update the name of them :
@@ -821,16 +866,18 @@
 
     6. run the task :
 
->    php artisan schedule:run
+> php artisan schedule:run
 
 ***
+
 + 3. ***example of task scheduling (send notifications email to the users:)*** :
+
 ***
 
-   + example 02:
-    
-       - the task that send an email every day:
-    
++ example 02:
+
+  + the task that send an email every day:
+
 ```sh
         
         // send an email to all the users :
@@ -872,16 +919,17 @@
 
     6. run the task :
 
->    php artisan schedule:run
-
+> php artisan schedule:run
 
 ***
-## 7. Models :
 
-+ 1. ***what is model*** 
+## 7. Models
+
++ 1. ***what is model***
+
 ***
 
-  + it's a class that represent the table in the database.
++ it's a class that represent the table in the database.
          - like :
             - User model represent the users table.
             - Post model represent the posts table.
@@ -909,22 +957,25 @@
         {
             protected $table = 'myorders';
         }
-```	
+```
 
 ***
+
 + 2. ***how to make a model*** :
+
 ***
 
     1. create a model :
 
->    php artisan make:model <modelName>
+> php artisan make:model <modelName>
 
 ***
+
 + 3. ***what is fillable*** :
 
-    + it's an array that contain the columns that you can insert data in it.
-    
-       - example :
+  + it's an array that contain the columns that you can insert data in it.
+
+    + example :
 
     ```sh
             
@@ -943,11 +994,12 @@
     ```
 
 ***
+
 + 4. ***what is hidden*** :
 
-    + it's an array that contain the columns that you don't want to show it in the response.
-    
-       - example :
+  + it's an array that contain the columns that you don't want to show it in the response.
+
+    + example :
 
 ```sh
             
@@ -963,10 +1015,10 @@
             }
 ```
 
-## 8. Database :
-
+## 8. Database
 
 + 1. ***what is migration*** :
+
 ***
 
     + it's a way to create a table in the database using code.
@@ -974,11 +1026,12 @@
 ***
 
 + 2. ***how to make a migration*** :
+
 ***
 
     1. create a migration :
 
->    php artisan make:migration <migrationName>
+> php artisan make:migration <migrationName>
 
     2. in the migration file :
 
@@ -1001,11 +1054,12 @@
 
     3. run the migration :
 
->    php artisan migrate
-
+> php artisan migrate
 
 ***
+
 + 3. ***how to get data from the database*** :
+
 ***
     - methods :  get , all , find , where , first , select , orderBy , limit , count , max , min , avg , sum , exists , doesntExist , pluck , firstOrCreate , firstOrNew , create , update , delete , destroy , save , push , fresh , findOrFail , findOrfail , findOrNew , findMany , find , findMany , findManyOrFail , findManyOrfail , findManyOrNew , findManyOrNew , findManyOrFail , findManyOrfail .
                
@@ -1018,7 +1072,7 @@
 
 ```
 
-   2.  get specific columns :
+   2. get specific columns :
 
 ```sh
 
@@ -1026,17 +1080,16 @@
 
 ```
 
-
   3. get the first row :
-    
+
 ```sh
     
      $data = User::first();
     
 ```
-    
+
    4. get the first row that match the condition :
-     
+
 ```sh
     
      $data = User::where('id' , 1)->first();
@@ -1044,12 +1097,13 @@
 ```
 
 ***
+
 + 4. ***how to insert data in the database*** :
+
 ***
 
-   1. insert data : (insert one row to the orders table) : 
-       - in the controller :
-
+   1. insert data : (insert one row to the orders table) :
+       + in the controller :
 
 ```sh
 use App\Models\Order;
@@ -1068,9 +1122,10 @@ use App\Models\Order;
 
 ```
 
-
 ***
+
 + 5. ***insert data in the database using a form*** :
+
 ***
 
     1. in the view file (create.blade.php ):
@@ -1125,9 +1180,11 @@ use App\Models\Order;
 ```
 
 ***
+
 + 6. ***validate data before insert it in the database*** :
+
 ***
-    
+
         1. add in the validation function in the controller :
     
 ```sh
@@ -1168,11 +1225,12 @@ use App\Models\Order;
         return 'your order created sucssesfuly'; // to return to the form after insert the data
 
         
-``` 
-            
+```
 
 ***
+
 + 7. ***Show error messages in the form*** :
+
 ***
 
     1. in the view file (orders.blade.php ):
@@ -1246,16 +1304,15 @@ use App\Models\Order;
 
 ```
 
-
-
-
 ***
+
 + 8. ***Validate the data in the request*** (the best way) :
+
 ***
 
     1. create a request :
 
->    php artisan make:request <requestName>
+> php artisan make:request <requestName>
 
     2. in the request file :
 
@@ -1305,7 +1362,9 @@ use App\Models\Order;
 ```
 
 ***
+
 + 9. ***Edite & update data in the database*** :
+
 ***
 
     1. in the view file (edit.blade.php ):
@@ -1354,7 +1413,9 @@ use App\Models\Order;
 ```
 
 ***
+
 + 10. ***save photo in the database*** :
+
 ***
 
     1. in the view file (create.blade.php ):
@@ -1374,7 +1435,7 @@ use App\Models\Order;
 
     2. in the config/filesyste.php :
 
-   - add this line in the disks :
++ add this line in the disks :
 
 ```sh
  
@@ -1387,6 +1448,7 @@ use App\Models\Order;
  ]
 
 ```
+
     3. in the controller file :
 
 ```sh
@@ -1410,29 +1472,32 @@ use App\Models\Order;
 
 ```
 
-note : 
+note :
     - the photo column in the users table must be string type.
     - don't forget to add the photo column in the fillable array in the table model.
 
-
-
 ***
-## 9. multi languages :
+
+## 9. multi languages
+
 ***
 
 + 1. ***what is multi languages*** :
+
 ***
 
     + it's a way to make the website in many languages.
 
 ***
-+ 2. ***how to make a multi languages*** :
+
++ 2.***how to make a multi languages*** :
+
 ***
 
     1. create a lang file :
 
->    php artisan make:lang <langName>
-    
+> php artisan make:lang <langName>
+
         2. in the lang file :
     
     ```sh
@@ -1452,7 +1517,9 @@ note :
     ```
 
 ***
+
 3. ***make validation messages multi lang*** :
+
 ***
 
     1. in the lang file :
@@ -1489,20 +1556,20 @@ note :
 ```
 
 ***
+
 4. ***change the language*** :
 
-    - using macamara package :
+    + using macamara package :
 
    1. install the package :
 
->    composer require mcamara/laravel-localization
+> composer require mcamara/laravel-localization
 
-   - and just complete the steps in the [Documentation](https://github.com/mcamara/laravel-localization) of the package.
-
++ and just complete the steps in the [Documentation](https://github.com/mcamara/laravel-localization) of the package.
 
    2. in the view file :
 
-      - to show the languages :
+      + to show the languages :
 
 ```sh
         <ul>
@@ -1515,8 +1582,7 @@ note :
             @endforeach
         </ul>
 
-```     
-
+```
 
   3. in the route file :
 
@@ -1529,15 +1595,17 @@ note :
 
     });
 
-``` 
+```
 
 ***
+
 5. ***get the data from database according to the language***
+
 ***
   
   1. create the database :
 
-     - create a table (like orders) with the colomun according to the languages (like name_en , name_ar) .
+     + create a table (like orders) with the colomun according to the languages (like name_en , name_ar) .
 
   2. get the data from the database :
 
@@ -1546,25 +1614,101 @@ note :
     $data = Order::select('name_' . LaravelLocalization::getCurrentLocale() . ' as name')->get();
 
 ```
-       
- - (. LaravelLocalization::getCurrentLocale()) to get the current language.
+
++ (. LaravelLocalization::getCurrentLocale()) to get the current language.
 
     like :
          in the english language the column will be name_en
             in the arabic language the column will be name_ar
 
+  + Note :
+    + when you add a new column in the table you must add the column in the model.
 
-    - Note : 
-         - when you add a new column in the table you must add the column in the model.
 
+
+## 10. Laravel Events and Listeners
+***
+
++ 1. ***what is events and listeners*** :
+
+***
+
++ it's a way to make the code more clean and easy to read.
+    + like :
+        - when the user register send an email to him.
+        - when the user make an order send a notification to the admin.
+        - when the user make a payment send a notification to the user.
+        - when the user see a product increase the views of the product.
 
 
 ***
 
++ 2. ***how to make an event*** :
 
-    
-            
+***
 
-   
+    1. create an event :
+
+> php artisan make:event <eventName>
+
+    2. in the event file :
+
+```sh
+
+    // add the data that you want to send it to the listener :
+
+    public $data;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+```
+
+    3. in the controller file :
+
+```sh
+
+    event(new EventName($data));
+
+```
+
+***
+
++ 3. ***how to make a listener*** :
+
+***
+
+    1. create a listener :
+
+> php artisan make:listener <listenerName> --event=<eventName>
+
+
+    2. in the listener file :
+
+```sh
+
+    // add the event that you want to listen to :
+
+    public function handle(EventName $event)
+    {
+        // the code that you want to run when the event run.
+    }
+
+```
+
+    3. add the listener and the event in the event service provider :
+
+
+```sh
+
+    protected $listen = [
+        EventName::class => [
+            ListenerName::class,
+        ],
+    ];
+
+```
 
 

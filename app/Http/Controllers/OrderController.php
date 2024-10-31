@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Events\OrderIvent;
 use App\Http\Requests\OrderRequest;
 use Illuminate\Http\Request;
 use app\Models\Order;
 use app\Models\Order_category;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Validator;
+use App\Traits\OrderTraits;
 
 class OrderController extends Controller
 {
     //
+    use OrderTraits;
 
     public function create () {
         $ord_catg = app\Models\Order_category::pluck('name_'.LaravelLocalization::getCurrentLocale());
@@ -22,43 +25,13 @@ class OrderController extends Controller
 
    public function store (OrderRequest $request) {
 
-    // validate the request
-
-    // $Rules = [
-    //     'name' => 'required|unique:orders,name',
-    //     'category' => 'required',
-    //     'description' => 'required|max:255|min:10',
-    // ];
-    
-    //   $messages = [
-    //        // custom error messages (on arabic)
-
-    //             'name.required' => __('messages.name_required'),
-    //             'name.unique' => __('messages.name_uniqe'),
-    //             'category.required' => __('messages.category_required'),
-    //             'description.required' => __('messages.description_required'),
-    //             'description.min' => __('messages.description_min'),
-    //             'description.max' => __('messages.description_max'),
-    //             'description' => __('messages.description'),
-
-
-    //   ];
-
-    //   $validator = Validator::make($request -> all(), $Rules, $messages);
-
-    // // if validation fails return the errors
-    //    if ($validator -> fails()) {
-    //        return redirect()->back()->withErrors($validator)->withInput($request -> all());
-    //    }
-
 
     
     // save the image in the folder
 
-    $file_extension = $request -> image -> getClientOriginalExtension(); 
-    $file_name = time().'.'.$file_extension; 
-    $path = 'images/orders';
-    $request -> image -> move($path , $file_name); 
+   $file_name = $this -> saveImage($request -> image , 'images/orders');
+
+
 
     // create the order 
 
@@ -151,4 +124,21 @@ class OrderController extends Controller
     return redirect()->back()->with(['success' => 'تم تعديل الطلب بنجاح']);
 
     }
+
+
+    public function OrderDetails ($order_id) {
+        $order = App\Models\Order::select(
+            'id',
+            'name_'.LaravelLocalization::getCurrentLocale().' as name',
+            'category',
+            'description_'.LaravelLocalization::getCurrentLocale().' as description',
+            'image',
+            'views'
+        )->find($order_id);
+        event(new OrderIvent($order));
+
+        return view('front.orders.details', compact('order'));
+    }
+
+
 }
