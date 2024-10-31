@@ -30,6 +30,8 @@ class OrderRequest extends FormRequest
                 'description_ar' => 'required|max:255|min:10',
                 'description_en' => 'required|max:255|min:10',
                 'description_fr' => 'required|max:255|min:10',
+                'image' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
+
         ];
 
     }

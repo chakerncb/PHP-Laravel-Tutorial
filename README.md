@@ -1353,11 +1353,66 @@ use App\Models\Order;
 
 ```
 
+***
++ 10. ***save photo in the database*** :
+***
 
+    1. in the view file (create.blade.php ):
 
+```sh
 
+    <form method="POST" action="{{route('insert')}}" enctype="multipart/form-data">
+        @csrf
+        <input type="text" name="name">
+        <input type="text" name="email">
+        <input type="text" name="password">
+        <input type="file" name="image">
+        <button type="submit">insert</button>
+    </form>
 
+```
 
+    2. in the config/filesyste.php :
+
+   - add this line in the disks :
+
+```sh
+ 
+ 'images' =>[
+            'driver' => 'local',
+            'root' => storage_path('public/images'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+            'throw' => false,
+ ]
+
+```
+    3. in the controller file :
+
+```sh
+
+    public function insert (Request $request) {
+
+    $file_extension = $request -> image -> getClientOriginalExtension(); 
+    $file_name = time().'.'.$file_extension; 
+    $path = 'images';  // the images will be saved in the public/images folder
+    $request -> image -> move($path , $file_name); 
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'photo' => $file_name,
+        ]);
+
+        return 'your order created sucssesfuly';
+    }
+
+```
+
+note : 
+    - the photo column in the users table must be string type.
+    - don't forget to add the photo column in the fillable array in the table model.
 
 
 
@@ -1505,11 +1560,6 @@ use App\Models\Order;
 
 
 ***
-
-   
- 
-
-
 
 
     

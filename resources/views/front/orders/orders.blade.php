@@ -16,7 +16,7 @@
                             </div>
                             @endif
                             <br>
-                            <form method="POST" action="{{route('orders.store')}}">
+                            <form method="POST" action="{{route('orders.store')}}" enctype="multipart/form-data">
                                @csrf
                                 <!-- Start: Success Example -->
                                 <div class="mb-3">
@@ -51,9 +51,9 @@
                                     <input
                                         class="form-control"
                                         type="text"
-                                        id="name_ar"
-                                        name="name_ar"
-                                        placeholder="Arabic Name"
+                                        id="name_fr"
+                                        name="name_fr"
+                                        placeholder="French Name"
                                     />
                                     @error('name_fr')
                                     <small class="form-text text-danger">{{$message}}</small>    
@@ -118,7 +118,18 @@
                                     
                                 </div>
 
+                                <div class="mb-3">
+                                    <input
+                                        class="form-control"
+                                        type="file"
+                                        id="image"
+                                        name="image"
+                                    />
                                 <div>
+                                    
+                                    @error('image')
+                                    <small class="form-text text-danger">{{$message}}</small>
+                                    @enderror
                                     <button
                                         class="btn btn-primary d-block w-100"
                                         type="submit"

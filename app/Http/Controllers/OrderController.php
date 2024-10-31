@@ -52,13 +52,26 @@ class OrderController extends Controller
     //    }
 
 
+    
+    // save the image in the folder
+
+    $file_extension = $request -> image -> getClientOriginalExtension(); 
+    $file_name = time().'.'.$file_extension; 
+    $path = 'images/orders';
+    $request -> image -> move($path , $file_name); 
+
+    // create the order 
 
 
-    //
     app\Models\Order::create([
-        'name' => $request -> name,
+        'name_ar' => $request -> name_ar,
+        'name_en' => $request -> name_en,
+        'name_fr' => $request -> name_fr,
         'category' => $request -> category,
-        'description' => $request -> description,
+        'description_ar' => $request -> description_ar,
+        'description_en' => $request -> description_en,
+        'description_fr' => $request -> description_fr,
+        'image' => $file_name,
     ]);
 
     return redirect()->back()->with('success', 'تم اضافة الطلب بنجاح');
@@ -116,6 +129,11 @@ class OrderController extends Controller
         return redirect()->back();
         }  // if the order_id is not exist in the database redirect back to the previous page.
 
+        // save image before update the order
+
+
+        
+
     // update the order
 
     //  $order -> update($request -> all()); // update all the fields in the order table
@@ -132,5 +150,5 @@ class OrderController extends Controller
 
     return redirect()->back()->with(['success' => 'تم تعديل الطلب بنجاح']);
 
-   }
+    }
 }

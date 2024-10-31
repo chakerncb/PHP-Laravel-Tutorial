@@ -18,6 +18,7 @@ class Order extends Model
         'description_ar',
         'description_en',
         'description_fr',
+        'image',
         'created_at',
         'updated_at',
     ];
