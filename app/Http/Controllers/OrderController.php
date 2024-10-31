@@ -81,7 +81,6 @@ class OrderController extends Controller
                     'description_ar',
                     'description_en',
                     'description_fr'
-
              )->find($order_id);
 
         return view('front.orders.edit', compact('order'));
@@ -138,6 +137,15 @@ class OrderController extends Controller
         event(new OrderIvent($order));
 
         return view('front.orders.details', compact('order'));
+    }
+
+    public function delete ($order_id) {
+        $order = App\Models\Order::find($order_id);
+        if(!$order) {
+            return redirect()->back();
+        }
+        $order -> delete();
+        return redirect()->back()->with(['success' => 'تم حذف الطلب بنجاح']);
     }
 
 

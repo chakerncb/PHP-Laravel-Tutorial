@@ -1414,7 +1414,47 @@ use App\Models\Order;
 
 ***
 
-+ 10. ***save photo in the database*** :
++ 10. ***delete data from the database*** :
+
+***
+
+    1. in the view file (orders.blade.php ):
+
+```sh
+
+    <a href="{{route('delete/'.$data->id)}}">delete</a>
+
+```
+
+    2. in the route file :
+
+```sh
+
+    Route::get('/delete/{id}' , 'App\Http\Controllers\yourController@delete')->name('delete');
+
+```
+
+    3. in yourcontroller file :
+
+```sh
+
+    public function delete ($id) {
+        $data = User::find($id);
+
+        if (!$data) {
+            return 'the order not found';
+        }
+        
+        $data->delete();
+        return 'your order deleted sucssesfuly';
+    }
+
+```     
+
+
+***
+
++ 11. ***save photo in the database*** :
 
 ***
 

@@ -15,6 +15,7 @@
                                     <th>{{__('messages.order_name')}}</th>
                                     <th>{{__('messages.order_description')}}</th>
                                     <th>{{__('messages.order_category')}}</th>
+                                    <th>{{__('messages.image')}}</th>
                                     <th>{{__('messages.views')}}</th>
                                 </tr>
                                 <tr>
@@ -22,8 +23,8 @@
                                     <td>{{$order->name}}</td>
                                     <td>{{$order->description}}</td>
                                     <td>{{$order->category}}</td>
+                                    <td><img src="{{asset('images/orders/'.$order->image)}}" alt="image" style="width: 100px; height: 100px;"></td>
                                     <td>{{$order->views}}</td>
-
                                 </tr>
                             </table>
 

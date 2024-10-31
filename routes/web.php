@@ -40,6 +40,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
        Route::post('update/{order_id}' , 'App\Http\Controllers\OrderController@update') -> name('orders.update');  
  
        Route::get('details/{order_id}' , 'App\Http\Controllers\OrderController@OrderDetails') -> name('orders.details');
+       Route::get('delete/{order_id}' , 'App\Http\Controllers\OrderController@delete') -> name('orders.delete');
 
     });
 

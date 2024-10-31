@@ -21,7 +21,8 @@
                                     <td>{{$order->id}}</td>
                                     <td>{{$order->name}}</td>
                                     <td><a href="{{URL('order/edit/'.$order->id)}}" class="btn btn-success">{{__('messages.edit')}}</a></td>
-                                    <td><a href="{{URL('order/details/'.$order->id)}}" class="btn btn-danger">{{__('messages.order_show')}}</a></td>
+                                    <td><a href="{{URL('order/delete/'.$order->id)}}" class="btn btn-danger">{{__('messages.delete')}}</a></td>
+                                    <td><a href="{{URL('order/details/'.$order->id)}}" class="btn btn-warning">{{__('messages.order_show')}}</a></td>
                                 </tr>
                                 @endforeach
                             </table>
