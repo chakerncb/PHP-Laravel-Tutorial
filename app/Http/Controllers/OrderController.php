@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use App;
 use App\Events\OrderIvent;
 use App\Http\Requests\OrderRequest;
+use App\Traits\ImageTraits;
 use Illuminate\Http\Request;
 use app\Models\Order;
 use app\Models\Order_category;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Validator;
-use App\Traits\OrderTraits;
 
 class OrderController extends Controller
 {
     //
-    use OrderTraits;
+    use ImageTraits;
 
     public function create () {
         $ord_catg = app\Models\Order_category::pluck('name_'.LaravelLocalization::getCurrentLocale());
@@ -24,18 +24,9 @@ class OrderController extends Controller
 
 
    public function store (OrderRequest $request) {
-
-
-    
     // save the image in the folder
-
    $file_name = $this -> saveImage($request -> image , 'images/orders');
-
-
-
     // create the order 
-
-
     app\Models\Order::create([
         'name_ar' => $request -> name_ar,
         'name_en' => $request -> name_en,
@@ -142,7 +133,7 @@ class OrderController extends Controller
     public function delete ($order_id) {
         $order = App\Models\Order::find($order_id);
         if(!$order) {
-            return redirect()->back();
+            return redirect()->back() -> with(['error' => 'هذا الطلب غير موجود']);
         }
         $order -> delete();
         return redirect()->back()->with(['success' => 'تم حذف الطلب بنجاح']);

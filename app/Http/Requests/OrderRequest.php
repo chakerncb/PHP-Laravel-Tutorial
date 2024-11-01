@@ -42,9 +42,7 @@ class OrderRequest extends FormRequest
      * @return array<string, string>
      */
 
-    public function messages(): array
-
-    {
+    public function messages(): array {
         return [
             // custom error messages (on arabic)
             'name_en.required' => __('messages.name_required'),

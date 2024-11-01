@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Controllers;
+use App\Http\Controllers\ProductController;
 use Mcamara\LaravelLocalization\LanguageNegotiator;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +47,21 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
 
 
 
+    /////////////////////////////  ajax routes  ///////////////////////////////////////
+
+      
+        
+
+
+
+
  });
+
+ Route::group(['prefix' => 'product'] , function (){
+
+   Route::get('create' , 'App\Http\Controllers\ProductController@create');
+   Route::post('store' , 'App\Http\Controllers\ProductController@store') -> name('product.store');
+   Route::get('show' , 'App\Http\Controllers\ProductController@getAllProducts') -> name('product.show'); 
+   Route::get('edit/{product_id}' , 'App\Http\Controllers\ProductController@edit') -> name('product.edit');
+
+});

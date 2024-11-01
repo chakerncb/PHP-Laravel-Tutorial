@@ -1752,3 +1752,77 @@ note :
 ```
 
 
+## 11. Ajax 
+
+***
+
+1. ***what is ajax*** :
+
+***
+
++ it's a way to send a request to the server without refresh the page.
+
+
+***
+
+2. ***how to make get form datat with ajax*** :
+
+***
+
+    1. in the view file :
+
+```sh
+
+    <form id="form">
+        @csrf
+        <input type="text" name="name">
+        <input type="text" name="email">
+        <input type="text" name="password">
+        <button type="submit">insert</button>
+    </form>
+
+    <script>
+        $('#form').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{route('insert')}}',
+                data: $('#form').serialize(),
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+    </script>
+
+```
+
+    2. in the route file :
+
+```sh
+
+    Route::post('/insert' , 'App\Http\Controllers\HomeController@insert')->name('insert');
+
+```
+
+    3. in the controller file :
+
+```sh
+
+    public function insert (Request $request) {
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return 'your order created sucssesfuly';
+    }
+
+```
+
+
+
+    
+
+
