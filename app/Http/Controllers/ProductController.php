@@ -19,7 +19,7 @@ class ProductController extends Controller
    
         $filename = $this -> saveImage($request -> image , 'images/products');
 
-        app\Models\Product::create([
+       $product = app\Models\Product::create([
             'name' => $request -> name,
             'price' => $request -> price,
             'description' => $request -> description,
@@ -28,7 +28,25 @@ class ProductController extends Controller
            
         ]);
 
-        return redirect() -> back() -> with(['success' => 'Product created successfully']);
+        // return redirect() -> back() -> with(['success' => 'Product created successfully']);)
+
+        if(!$product) {
+            return response() -> json(
+                [
+                    'status' => false,
+                    'message' => 'Product not created'
+                ]
+            );
+        }
+         else{
+
+        return response() -> json(
+            [
+                'status' => true,
+                'message' => 'Product created successfully'
+            ]
+        );
+    }
     }
 
     public function getAllProducts() {
@@ -41,6 +59,28 @@ class ProductController extends Controller
         ) -> get();
         
         return view('front.products.index', compact('products'));
+    }
+
+    public function delete(Request $request) {
+        $product_id = $request -> product_id;
+        $product = app\Models\Product::find($product_id);
+        if(!$product) {
+            return response() -> json(
+                [
+                    'status' => false,
+                    'message' => 'Product not found'
+                ]
+            );
+        } else {
+            $product -> delete();
+            return response() -> json(
+                [
+                    'status' => true,
+                    'message' => 'Product deleted successfully',
+                    'product_id' => $product_id
+                ]
+            );
+        }       
     }
 
 }

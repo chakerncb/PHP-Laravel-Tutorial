@@ -1765,7 +1765,7 @@ note :
 
 ***
 
-2. ***how to make get form datat with ajax*** :
+2. ***how to make an ajax request*** :
 
 ***
 
@@ -1820,6 +1820,95 @@ note :
     }
 
 ```
+
+***
+
+3. ***delete data using ajax*** :
+
+***
+
+    1. in the view file :
+
+```sh
+
+    <div class="d-flex justify-content-start gap-5">
+     @foreach($products as $product)
+         <div class="card p-2 Card{{$product->id}}" style="width: 20rem; height: 20rem ">
+             <br>
+             <div class="card-body">
+               <h5 class="card-title">{{$product->name}}</h5>
+               <p class="card-text">{{$product->description}}</p>
+               <p class="card-price text-info">{{$product->price}} DZ</p>
+                 <a class="rounded bg-danger text-bg-primary p-1" product_id="{{$product->id}}" id="delete_btn" class="btn btn-primary delete_btn">delete</a>
+             </div>
+           </div>
+         @endforeach
+
+        </div>
+
+        // the ajax code :
+
+    <script>
+     $(document).on('click', '#delete_btn', function(e){
+        e.preventDefault();
+        console.log('delete');
+        var product_id = $(this).attr('product_id');
+        $.ajax({
+            type: "POST",
+            url: "{{route('product.delete')}}",
+            data: {
+                product_id: product_id,
+                _token: "{{csrf_token()}}"
+            },
+            success: function (response) {
+                if(response.status == true){
+                    alert(response.message);
+                    $('.Card'+product_id).remove(); // to remove the product from the view
+                }else{
+                    alert(response.message);
+                }
+            }
+        });
+    });
+
+    </script>
+
+```
+
+    2. in the route file :
+
+```sh
+
+    Route::post('/product/delete' , 'App\Http\Controllers\HomeController@delete')->name('product.delete');
+
+```
+
+    3. in the controller file :
+
+```sh
+
+    public function delete (Request $request) {
+        $product = Product::find($request->product_id);
+        if (!$product) {
+            return response()->json(
+                [
+                    'status' => false ,
+                     'message' => 'the product not found'
+                     ]
+            );
+        }
+        $product->delete();
+        return response()->json(
+            [
+                'status' => true ,
+                 'message' => 'the product deleted sucssesfuly' ,
+                  'product_id' => $request->product_id, // to remove the product from the view
+                  ]
+            );
+    }
+
+```
+        
 
 
 

@@ -16,7 +16,7 @@
                             </div>
                             @endif
                             <br>
-                            <form enctype="multipart/form-data">
+                            <form id="Pform" enctype="multipart/form-data">
                                @csrf
                                 <!-- Start: Success Example -->
                                 <div class="mb-3">
@@ -92,25 +92,26 @@
 @section('scripts')
 
 <script>
-
-    console.log('test');
-
     $(document).on('click', '#save_product', function(e){
         e.preventDefault();
+        var formData = new FormData($('#Pform')[0]);
+
         $.ajax({
             type: "POST",
+            enctype: 'multipart/form-data',
             url: "{{route('product.store')}}",
-            data: {
-                '_token' : "{{csrf_token()}}",
-                'name' : $("input[name='name']").val(),
-                'price' : $("input[name='price']").val(),
-                'description' : $("textarea[name='description']").val(),
-               // 'image' : $("input[name='image']").val(),
-                
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                if(response.status == true){
+                    $('#Pform').trigger('reset');
+                    alert(response.message);
+                }else{
+                    alert(response.message);
+                }
             },
-            // success: function(response){
-            //     console.log(response);
-            // }
         });
     });
 </script>

@@ -14,7 +14,7 @@ Trait ImageTraits {
          $image_request -> move($path , $file_name);
       }
       else {
-         $file_name = 'no_image.png';
+         $file_name = 'no-image.png';
       }
        
         
