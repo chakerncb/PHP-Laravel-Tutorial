@@ -21,13 +21,13 @@ use Illuminate\Http\Request;
       // Route::namespace('App\Http\Controllers')
       // ->group(base_path('routes/admin.php'));
 
- Route::get ('/admin' , function () {
-    return ('this is admin panel');
- });
+//  Route::get ('/admin' , function () {
+//     return ('this is admin panel');
+//  });
 
 
- Route::get('/panel' , 'App\Http\Controllers\Admin\AdminController@adminPanel');
- Route::get('/users1' , 'App\Http\Controllers\Admin\AdminController@showUsers');
+//  Route::get('/panel' , 'App\Http\Controllers\Admin\AdminController@adminPanel');
+//  Route::get('/users1' , 'App\Http\Controllers\Admin\AdminController@showUsers');
 
 
  

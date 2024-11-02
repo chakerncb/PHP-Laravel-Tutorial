@@ -4,6 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if (Session::has('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{Session::get('error')}}
+                            </div>
+                            @endif
+                            
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 

@@ -67,3 +67,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
    Route::post('update' , 'App\Http\Controllers\ProductController@update') -> name('product.update');
 
 });
+
+
+ ////////////////////////////////////////////// multi guard routes //////////////////////////////////////////
+Route::group( ['middleware' => 'CheckAge'] , function () {
+    Route::get('adult' , 'App\Http\Controllers\Auth\CustomAthificationController@adult');
+});
+
+
+// Route::get('user' , 'App\Http\Controllers\Auth\CustomAthificationController@user');
+// Route::get('admin' , 'App\Http\Controllers\Auth\CustomAthificationController@admin');
