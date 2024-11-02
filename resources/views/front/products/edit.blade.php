@@ -149,3 +149,30 @@
     </section>
     <!-- End: Contact Form Basic -->           
     @endsection
+
+@section('scripts')
+
+<script>
+    $(document).on('click', '#delete_btn', function(e){
+        e.preventDefault();
+        console.log('delete');
+        var product_id = $(this).attr('product_id');
+        $.ajax({
+            type: "POST",
+            url: "{{route('product.update')}}",
+            data: {
+                product_id: product_id,
+                _token: "{{csrf_token()}}"
+            },
+            success: function (response) {
+                if(response.status == true){
+                    alert(response.message);
+                    $('.Card'+product_id).remove();
+                }else{
+                    alert(response.message);
+                }
+            }
+        });
+    });
+</script>
+@endsection

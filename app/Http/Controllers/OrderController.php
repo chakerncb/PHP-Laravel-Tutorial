@@ -92,11 +92,6 @@ class OrderController extends Controller
         return redirect()->back();
         }  // if the order_id is not exist in the database redirect back to the previous page.
 
-        // save image before update the order
-
-
-        
-
     // update the order
 
     //  $order -> update($request -> all()); // update all the fields in the order table
