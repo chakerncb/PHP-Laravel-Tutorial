@@ -83,6 +83,47 @@ class ProductController extends Controller
         }       
     }
 
-    
+    function edit($product_id) {
+        $product = app\Models\Product::find($product_id);
+
+        if(!$product) {
+            return response() -> json(
+                [
+                    'status' => false,
+                    'message' => 'Product not found'
+                ]
+            );
+        }
+            return view('front.products.edit', compact('product'));
+        
+    }
+
+    function update(ProductRequest $request) {
+        $product_id = $request -> product_id;
+        $product = app\Models\Product::find($product_id);
+
+        if(!$product) {
+            return response() -> json(
+                [
+                    'status' => false,
+                    'message' => 'Product not found'
+                ]
+            );
+        }
+
+        $product -> update([
+            'name' => $request -> name,
+            'price' => $request -> price,
+            'description' => $request -> description
+        ]);
+
+        return response() -> json(
+            [
+                'status' => true,
+                'message' => 'Product updated successfully'
+            ]
+        );
+
+    }
 
 }

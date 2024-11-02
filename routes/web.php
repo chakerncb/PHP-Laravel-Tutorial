@@ -63,5 +63,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
    Route::post('store' , 'App\Http\Controllers\ProductController@store') -> name('product.store');
    Route::get('show' , 'App\Http\Controllers\ProductController@getAllProducts') -> name('product.show'); 
    Route::Post('delete' , 'App\Http\Controllers\ProductController@delete') -> name('product.delete');
+   Route::get('edit/{product_id}' , 'App\Http\Controllers\ProductController@edit') -> name('product.edit');
+   Route::post('update' , 'App\Http\Controllers\ProductController@update') -> name('product.update');
 
 });

@@ -36,7 +36,7 @@
                                       <p class="card-price text-info">{{$product->price}} DZ</p>
                                       <div class="d-flex justify-content-start gap-3">
                                         <a class="rounded bg-danger text-bg-primary p-1" product_id="{{$product->id}}" id="delete_btn" class="btn btn-primary delete_btn">delete</a>
-                                        <a class="rounded bg-warning text-bg-light p-1" id="update_btn" class="btn btn-success">update</a>
+                                        <a class="rounded bg-warning text-bg-light p-1" href="{{route('product.edit',$product->id)}}"  id="edit_btn" class="btn btn-success">Edit</a>
                                       </div>
                                     </div>
                                   </div>
@@ -74,7 +74,6 @@
             }
         });
     });
-
     </script>
 
     @endsection

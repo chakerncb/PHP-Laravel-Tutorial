@@ -16,126 +16,60 @@
                             </div>
                             @endif
                             <br>
-                            <form method="POST" action="{{route('orders.update' ,$order -> id)}}">
+                            <form id="updateForm">
                                @csrf
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
                                 <!-- Start: Success Example -->
                                 <div class="mb-3">
-                                    <label for="name_en">Name in English</label>
+                                    <label for="name">Name in English</label>
                                     <input
                                         class="form-control"
                                         type="text"
-                                        id="name_en"
-                                        name="name_en"
-                                        value="{{$order->name_en}}"
-                                        placeholder="Name in English"
+                                        id="name"
+                                        name="name"
+                                        value="{{$product->name}}"
+                                        placeholder="Product Name"
                                     />
-                                    @error('name_en')
+                                    @error('name')
                                     <small class="form-text text-danger">{{$message}}</small>    
                                     @enderror
                                     
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="name_ar">Name in Arabic</label>
+                                    <label for="price">Price in DZD</label>
                                     <input
                                         class="form-control"
                                         type="text"
-                                        id="name_ar"
-                                        value="{{$order->name_ar}}"
-                                        name="name_ar"
-                                        placeholder="Arabic Name"
+                                        id="price"
+                                        name="price"
+                                        value="{{$product->price}}"
+                                        placeholder="Product Price"
                                     />
-                                    @error('name_ar')
+                                    @error('price')
                                     <small class="form-text text-danger">{{$message}}</small>    
                                     @enderror
-                                    
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="name_ar">Name in French</label>
-                                    <input
-                                        class="form-control"
-                                        type="text"
-                                        id="name_fr"
-                                        value="{{$order->name_fr}}"
-                                        name="name_fr"
-                                        placeholder="Arabic Name"
-                                    />
-                                    @error('name_fr')
-                                    <small class="form-text text-danger">{{$message}}</small>    
-                                    @enderror
-                                    
-                                </div>
-                                <!-- End: Success Example --><!-- Start: Error Example -->
-                                <div class="mb-3">
-                                    <label for="category">Order Category</label>
-                                    <div class="mb-3">
-                                        <input
-                                            class="form-control"
-                                            id="Category"
-                                            name="category"
-                                            value="{{$order->category}}"
-                                            placeholder="Category"
-                                        ></input>
-                                        @error('category')
-                                        <small  class="form-text text-danger">{{$message}}</small>    
-                                        @enderror
-                                        
-                                    </div>
-                                    </div>
-                                </div>
                                 
                                 <!-- End: Error Example -->
                                 <div class="mb-3">
-                                    <label for="description_en">Description in English</label>
+                                    <label for="description">Description in English</label>
                                     <input
                                         class="form-control"
-                                        id="description_en"
-                                        name="description_en"
-                                        value="{{$order->description_en}}"
-                                        placeholder="description in English"
+                                        id="description"
+                                        name="description"
+                                        value="{{$product->description}}"
+                                        placeholder="Product Description"
                                     ></input>
-                                    @error('description_en')
+                                    @error('description')
                                     <small class="form-text text-danger">{{$message}}</small>    
                                     @enderror
                                     
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="description_ar">Description in Arabic</label>
-                                    <input
-                                        class="form-control"
-                                        id="description_ar"
-                                        name="description_ar"
-                                        value="{{$order->description_ar}}"
-                                        placeholder="description in Arabic"
-                                    ></input>
-                                    @error('description_ar')
-                                    <small class="form-text text-danger">{{$message}}</small>    
-                                    @enderror
-                                    
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="description_fr">Description in French</label>
-                                    <input
-                                        class="form-control"
-                                        id="description_fr"
-                                        name="description_fr"
-                                        value="{{$order->description_fr}}"
-                                        placeholder="description in french"
-                                    ></input>
-                                    @error('description_fr')
-                                    <small class="form-text text-danger">{{$message}}</small>    
-                                    @enderror
-                                    
-                                </div>
-                                
-
                                 <div>
                                     <button
                                         class="btn btn-primary d-block w-100"
-                                        type="submit"
+                                        id="update_product"
                                     >
                                         Save
                                     </button>
@@ -153,25 +87,27 @@
 @section('scripts')
 
 <script>
-    $(document).on('click', '#delete_btn', function(e){
+    $(document).on('click', '#update_product', function(e){
         e.preventDefault();
-        console.log('delete');
-        var product_id = $(this).attr('product_id');
+        var formData = new FormData($('#updateForm')[0]);
+        let product_id = {{$product->id}};
+
         $.ajax({
-            type: "POST",
+            type: "POST",        
+            enctype: 'multipart/form-data',
             url: "{{route('product.update')}}",
-            data: {
-                product_id: product_id,
-                _token: "{{csrf_token()}}"
-            },
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
             success: function (response) {
                 if(response.status == true){
+                    $('#update_form').trigger('reset');
                     alert(response.message);
-                    $('.Card'+product_id).remove();
                 }else{
                     alert(response.message);
                 }
-            }
+            },
         });
     });
 </script>
