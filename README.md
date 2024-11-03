@@ -284,7 +284,7 @@
   
     Route::get('/' , function () {
         return view('welcome');
-    }) -> middleware('auth');
+    }) -> middleware('middlewareName');
 
 ```
 
@@ -292,7 +292,7 @@
 
 ```sh
 
-    Route::group(['middleware' => 'auth'] , function () {
+    Route::group(['middleware' => 'middlewareName'] , function () {
         Route::get('/' , function () {
             return view('welcome');
         });
@@ -307,7 +307,7 @@
 ```sh
 
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware('middlewareName');
     }
 
 ```
@@ -317,7 +317,7 @@
 ```sh
 
    public function __construct() {
-        $this->middleware('auth') ->except('showUsers');
+        $this->middleware('middlwareName') ->except('methodName');
     }
 
 ```
@@ -1908,6 +1908,210 @@ note :
     }
 
 ```
+
+***
+
+## 12. Multi guards
+
+***
+
++ 1. ***what is multi guards*** :
+
+***
+
++ it's a way to make diffrent persone login with different profile.
+    + like :
+        - login as normal user with the email and the password.
+        - login as admin with the username and the password.
+
+
+***
+
++ 2. ***how to make a multi guards authification*** :
+
+***
+
+    1. in the config/auth.php :
+
+```sh
+
+    'guards' => [
+        'web' => [  // the default guard for the normal user
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'admin' => [  // the guard for the admin
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+    ],
+
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // the model of the normal user
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class, // the model of the admin
+        ],
+    ],
+
+```
+
+    2. in the route file :
+
+```sh
+
+  Route::get('site' , 'App\Http\Controllers\Auth\CustomAthificationController@user') -> middleware('auth:web');
+Route::get('admin' , 'App\Http\Controllers\Auth\CustomAthificationController@admin') -> middleware('auth:admin') -> name('admin');
+
+Route::get('admin/login' , 'App\Http\Controllers\Auth\CustomAthificationController@adminLogin');
+Route::post('admin/login' , 'App\Http\Controllers\Auth\CustomAthificationController@CheckAdminLogin') -> name('admin.login');
+
+```
+
+ 
+  3. in the controller file :
+
+```sh
+
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Auth;
+class CustomAthificationController extends Controller
+{
+
+  public function user(){
+        return view('customAuth.user');
+    }
+
+    public function admin(){
+        return view('customAuth.admin');
+    }
+
+    public function adminLogin(){
+        return view('customAuth.login');
+    }
+
+    public function CheckAdminLogin(Request $request){
+        // $this->validate($request , [
+        //     'email' => 'required|email',
+        //     'password' => 'required'
+        // ]);
+
+        if(Auth::guard('admin')->attempt(['email' => $request -> email, 'password' => $request -> password])){
+            return redirect() -> intended('/admin');
+        }
+        return back() -> withInput($request -> only('email'));
+       
+    }
+
+}
+
+```
+
+4. in the view file :
+
+```sh
+
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{__('auth.login') }}</div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('admin.login') }}">
+                        @csrf
+
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('auth.email') }}/{{__('auth.mobile')}}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  required autocomplete="email" >
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('auth.password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('auth.remember_me') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('auth.login') }}
+                                </button>
+
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('auth.forgot_your_password?') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+```
+
+***
+
+## 13. Laravel Relationships
+
+***
+
++ 1. ***what is relationships*** :
+
+***
+
++ it's a way to make a relation between the tables in the database.
+    + like :
+        - one to one.
+        - one to many.
+        - many to many.
+        - has many through.
+        - has one through.
+        - polymorphic relations.
+        - many to many polymorphic relations.
+
+        
 
 
 

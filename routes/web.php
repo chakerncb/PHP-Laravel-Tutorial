@@ -75,5 +75,8 @@ Route::group( ['middleware' => 'CheckAge'] , function () {
 });
 
 
-// Route::get('user' , 'App\Http\Controllers\Auth\CustomAthificationController@user');
-// Route::get('admin' , 'App\Http\Controllers\Auth\CustomAthificationController@admin');
+Route::get('site' , 'App\Http\Controllers\Auth\CustomAthificationController@user') -> middleware('auth:web');
+Route::get('admin' , 'App\Http\Controllers\Auth\CustomAthificationController@admin') -> middleware('auth:admin') -> name('admin');
+
+Route::get('admin/login' , 'App\Http\Controllers\Auth\CustomAthificationController@adminLogin');
+Route::post('admin/login' , 'App\Http\Controllers\Auth\CustomAthificationController@CheckAdminLogin') -> name('admin.login');
