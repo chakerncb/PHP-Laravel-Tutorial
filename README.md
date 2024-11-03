@@ -39,7 +39,7 @@
 
     2. create the project using Composer :
 
-> composer create project laravel/laravel -name of the project-
+> composer create-project laravel/laravel projectName
 
     3. go to the project folder :
 
