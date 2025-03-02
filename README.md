@@ -25,10 +25,6 @@
     + to store the data.
         -like : MySQL .
 
-7. ***Node.js*** :
-
-    + to run the npm commands.
-
 # II. Create new laravel project
 
    1. go to public folder in the server.
